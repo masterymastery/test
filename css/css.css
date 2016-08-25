@@ -1,0 +1,314 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+html{
+    font-size: 625%;
+}
+a {
+    text-decoration: none;
+}
+body{
+    background: #FFF none repeat scroll 0% 0%;
+    color: #333;
+    text-align: left;
+    font-family: "微软雅黑",Arial;
+    font-size: 100%;
+    font-size: 0.16rem;
+}
+
+#wapper
+{
+    min-width: 240px;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 720px;
+    position: relative;
+}
+
+#banner
+{
+    height: 35px;
+    width: 100%;
+    max-width: 720px;
+    min-height: 17px;
+    overflow: hidden;
+    z-index: 9999;
+    color:rgb(127,127,127);font-size: 1em;
+    border-bottom: 1px solid rgb(222,222,222);
+}
+
+#gps{
+    float:left;
+    margin-top: 0.4em;margin-right: 1em;margin-left:1em;
+}
+#gps img{
+    transform: scale(0.8);vertical-align: middle;
+}
+#areaName{
+    float:right;cursor: pointer;
+    margin-top: 0.4em;margin-right: 1em;
+}
+#provinceName{
+    float:right;cursor: pointer;
+    margin-top: 0.4em;margin-right: 1em;
+}
+#content{
+    text-align: center;padding-bottom: 10px;position: relative;
+}
+#innerContent{
+    max-width: 672px;background-color:#ffffff;
+    width:95%;
+    margin:0 auto;
+    /*height:1095px;*/
+}
+#innerContent ul{
+    /*height: 1095px;*/
+    overflow: auto;
+}
+#innerContent ul li{
+    border-bottom: 1px solid rgb(222,222,222);cursor: pointer;
+}
+.selectTicketOrSeat{
+    text-align: left;display:none;
+}
+.Ticket{
+    width: 100%;height:.7rem;line-height: .7rem;background-color: #ebdbd5;
+}
+.Ticket .quan{
+    font-size:.9em;color:#72726f;
+}
+.Seat{
+    width: 100%;height:.7rem;line-height: .7rem;background-color: #ebdbd5;border-bottom: 1px solid #dc6060;
+}
+.Seat .zuo{
+    color:#72726f;font-size:14px;
+}
+.addBk{
+    background-color:#c88f90;
+}
+#innerContent ul li:last-child{
+   /* border-bottom: none;cursor: pointer;*/
+}
+.contentTop{
+    display: block;max-width: 672px;width:98%;padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contentTop .cinemaName{
+    float:left;margin-left:10px;margin-right: 5px;font-size: .1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    width: 80%;text-align: left;
+}
+.contentTop .cinemaType{
+    float:left;color:#b9b8b4;font-size: .08rem;
+}
+.contentTop .seatType{
+    float:right;width:18px;height:18px;line-height:18px;border-radius: 5px;
+    background-color: #9acd34;color:white;  margin-top: -2px;font-size: .8em;
+}
+.contentTop .ticketType{
+    float:right;margin-right:2px;width:18px;height:18px;line-height:18px;border-radius: 5px;
+    background-color: #fa944c;color:white;  margin-top: -2px;font-size: .8em;
+}
+.Seat .seatType{
+    width:24px;height:24px;line-height:24px;border-radius: 5px;display: inline-block;text-align: center;
+    background-color: #9acd34;color:white; font-size: 14px;margin-left: .1rem;margin-right: .15rem;
+}
+.Ticket .ticketType{
+    width:.24rem;height:.24rem;line-height:.24rem;border-radius: 5px;display: inline-block;text-align: center;
+    background-color: #fa944c;color:white; font-size: 14px;margin-left: .1rem;margin-right: .15rem;
+}
+.contentBottom{
+    display:block;max-width: 672px;width:95%;padding-bottom: 25px;
+    padding-top: 20px;
+}
+.contentBottom .house{
+    float:left;margin-left:10px;margin-right:5px;
+    width: 13px;
+    height: 13px;
+    margin-top: 1px;
+}
+.contentBottom .address{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    width: 90%;
+    float:left;color:#b9b8b4;text-align: left;font-size: .08rem;
+}
+@media screen and (min-width: 481px) {
+    .contentTop .cinemaName{
+        font-size: 1.6em;width: 80%;margin-top: -8px;
+    }
+    .contentTop .cinemaType{
+    /*    padding-top: 10px;*/
+    }
+    .contentTop .ticketType{
+     /*   margin-top: 0px;*/
+    }
+}
+@media screen and (max-width:480px) and (min-width:401px)
+{
+    .contentTop .cinemaName{
+       font-size: 1.4em;width: 80%;margin-top: -5px;
+    }
+    .contentTop .cinemaType{
+
+    }
+    .contentTop .ticketType{
+
+    }
+}
+@media screen and (min-width:361px) and (max-width:400px)
+{
+    .contentTop .cinemaName{
+        font-size: 1.3em;width: 80%;margin-top: -4px;
+    }
+    .contentTop .cinemaType{
+
+    }
+    .contentTop .ticketType{
+
+    }
+}
+@media screen and (max-width:360px) and (min-width:321px)
+{
+    .contentTop .cinemaName{
+        font-size: 1.2em;width: 80%;  margin-top: -3px;
+    }
+    .contentTop .cinemaType{
+
+    }
+    .contentTop .ticketType{
+
+    }
+}
+@media screen and (max-width:320px)
+{
+    .contentTop .cinemaName{
+        font-size: 1em;
+        margin-top: -4px;
+    }
+}
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    opacity:0.4;
+}
+.white_content_small {
+    display: none;
+    position: fixed;
+    top: 30%;
+    z-index:1002;
+    max-width: 609px;
+    width:90%;
+    height:238px;
+    background-image: url("../images/alert1.png");
+    background-repeat: no-repeat;
+    background-size:100%;text-align: center;
+}
+.white_content_small p{
+    color:#999999;
+}
+#city
+{
+    background: none repeat scroll 0% 0% #ffffff;
+    position: absolute;
+    z-index: 1000;
+    min-width: 240px;
+    width: 100%;
+    max-width: 672px;
+    display:none;
+}
+#city table
+{
+    min-width: 240px;
+    width: 100%;
+    max-width: 720px;
+    border-collapse: collapse;
+    border: none;
+}
+#city td{
+    border: solid rgb(229,229,227) 1px;width:25%;text-align:center;line-height: 46px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+#city th
+{
+    background-color: rgb(232,232,232);margin-bottom: 10px;margin-top:15px;text-align: left;text-indent:15px;line-height: 36px;
+    color: rgb(137,137,137);
+}
+#city td a
+{
+    display:block;
+    color: rgb(0,0,0);
+}
+#area
+{
+    background: none repeat scroll 0% 0% #ffffff;
+    position: absolute;
+    z-index: 1000;
+    min-width: 240px;
+    width: 100%;
+    max-width: 672px;
+    display:none;
+}
+#area table
+{
+    min-width: 240px;
+    width: 100%;
+    max-width: 720px;
+    border-collapse: collapse;
+    border: none;
+}
+#area td{
+    border: solid rgb(229,229,227) 1px;width:25%;text-align:center;line-height: 46px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+#area th
+{
+    background-color: rgb(232,232,232);margin-bottom: 10px;margin-top:15px;text-align: left;text-indent:15px;line-height: 36px;
+}
+#area td a
+{
+    display:block;overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;color: rgb(0,0,0);
+}
+
+.spin{
+    content: "";display: inline-block;margin: 0 15px 4px;padding: 0;border: 0;background: 0;width: 3px;height: 3px;border-radius: 100%;
+    box-shadow: 0 -10px 0 .9px #666,10px 0 #999,0 10px #999,-10px 0 #999,-7px -7px 0 .4px #999,7px -7px 0 1.1px #666,7px 7px #999,-7px 7px #999;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation: spin 1.5s linear infinite;
+    transform: rotate(60deg);
+    animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+#bottom{
+    position: fixed;
+}

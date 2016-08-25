@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;color:#7f7f7f;
+        }
+        #header{
+            background-color: #f6f6f6;width:95%;margin: 0 auto;text-align: center;padding-top:20px;
+            padding-bottom:50px;
+        }
+        #header table{
+            width:100%;margin-bottom:40px;
+        }
+        #message{
+            border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;padding-top:20px;padding-bottom:20px;
+            font-size:.14rem;
+        }
+        #message input{
+            color:#7f7f7f;width:40%;border-radius: 2px;background-color:#edecec;border:1px solid #7f7f7f;
+            font-size:.12rem;padding-top:4px;padding-bottom:4px;
+        }
+        .hTop{
+            padding-top:8%;padding-left: 6%;
+        }
+        .hSubmit{
+            text-align:center;width:90%;margin: 0 auto;padding-top:8%;padding-bottom:4%;
+        }
+        .hSubmit input{
+            color:#ffffff;width:100%;border-radius: 8px;background-color:#f89300;border:none;font-size:.16rem;
+            padding-top:8px;padding-bottom:8px;
+        }
+        #zhifubao{
+            margin-top:30px;
+        }
+        #zhifubao input{
+            float:right;margin-right:10%;
+        }
+        #bottom{
+            position: fixed;
+        }
+        .dark{
+            color:#272727;
+        }
+        .orange{
+            color: #f7a13c;
+        }
+        .darkOrange{
+            color:#f27000;font-size:.22rem;
+        }
+        @media (max-width: 374px) and (min-width: 320px){
+            #dataLimit{
+                left:4%;
+            }
+        }
+        @media (min-width: 375px) and (max-width: 413px){
+            #dataLimit{
+                left:5%;
+            }
+        }
+        @media (min-width: 414px){
+            #dataLimit{
+                left:6.5%;
+            }
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+            $("#area1").click(function(){
+            })
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            /*绝对定位居中*/
+           /* $("#dataLimit").css("left",($("#dataLimit").parent("td").width()-$("#dataLimit").width())/2);*/
+           /* alert($("#dataLimit").parent("td").width());*/
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="wrapper">
+    <div id="header">
+        <table>
+            <tr>
+                <td width="50%">
+                    商品类型
+                </td>
+                <td width="50%">
+                    数量
+                </td>
+            </tr>
+            <tr>
+                <td class="dark" style="padding-top:30px;">
+                    <span>35元通兑券</span>
+                    <p id="dataLimit" style="font-size:.12rem;position:absolute;color:#7f7f7f;">(2015-10-11至2015-11-31)</p>
+                </td>
+                <td class="orange" style="padding-top:30px;">
+                    1张
+                </td>
+            </tr>
+        </table>
+        <div id="message">
+            <img style="width:16px;margin-right:10px;" src="images/cell.png"/>接收短信手机号：
+            <input type="text" placeholder="请输入正确的手机号">
+        </div>
+        <p style="float:right;padding-top:10px;padding-right:5px;"><span class="dark" style="font-size: .14rem;">应付金额：</span><span class="darkOrange">￥128</span></p>
+    </div>
+    <img style="width:95%;margin: 0 auto;display: block;" src="images/screenBottom.png"/>
+    <div id="zhifubao">
+        <img style="width:30px;margin-left:10%;margin-right:6%;" src="images/zhi.png"/>支付宝支付
+        <input type="radio" checked>
+    </div>
+    <div class="hSubmit">
+        <form action="TicketSuccess.html">
+            <input name="submit" type="hidden"/>
+            <input id="submit" type="submit" value="确认支付"/>
+        </form>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>

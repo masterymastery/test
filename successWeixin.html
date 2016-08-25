@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width = device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background: #FFF none repeat scroll 0% 0%;
+            color: #333;
+            text-align: left;
+            font-family: "微软雅黑", Arial;
+            font-size: 100%;
+        }
+
+        #wapper {
+            min-width: 240px;
+            margin: 0px auto;
+            width: 100%;
+            max-width: 720px;
+            position: relative;
+        }
+
+        #header {
+            height: 40px;
+            width: 100%;
+            max-width: 720px;
+            min-height: 17px;
+            overflow: hidden;
+            z-index: 9999;
+            background: RGB(239, 200, 188) none repeat scroll 0% 0%;
+        }
+
+        #header img {
+            transform: scale(0.8);
+        }
+
+        #content {
+            text-align: center;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        #innerContent {
+            max-width: 672px;
+            background-color: #f6f4f1;
+            width: 95%;
+            margin: 0 auto;
+            height: 395px;
+            text-align: center;
+            color: #282828;
+            font-family: '微软雅黑';
+        }
+
+        #innerContent h2 {
+            padding-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        #innerContent p {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 0.8em;
+        }
+
+        #innerContent .edge {
+            max-width: 100px;
+            width: 100%;
+            vertical-align: text-top;
+            margin-top: -3px;
+        }
+
+        .goldenColor {
+            color: #a0947a;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+        #bottom{
+            position: fixed;
+        }
+    </style>
+    <script>
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="wapper">
+    <div id="content">
+        <div id="innerContent">
+            <h2>兑换成功</h2>
+
+            <p class="bold">您的兑换码已发送到手机,该码为观影唯一凭证</p>
+
+            <p class="bold">请于三日内凭兑换码和手机号前往影院前台换票观影</p>
+
+            <p class="bold">电影通兑卡剩余兑换次数为<span>16</span>次</p>
+
+            <div style="margin-top: 20px;margin-bottom: 15px;">
+                <img class="edge" src="images/success2.jpg"/>
+                <img style="transform: scale(0.8);" src="images/success1.png"/>
+                <img class="edge" src="images/success2.jpg"/>
+            </div>
+            <p class="goldenColor">请妥善保管电子兑换码，如若丢失，需独自承担</p>
+
+            <p class="goldenColor">由于网络或影院原因出票可能会有延迟，请耐心等待</p>
+
+            <p style="padding-bottom: 20px;" class="goldenColor">如有疑问，请致电010-2553324</p>
+        </div>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>

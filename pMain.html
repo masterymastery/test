@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;
+        }
+        #content ul li{
+            border-bottom:1px solid #dcdcdc;
+        }
+        #bottom{
+            position: fixed;
+        }
+        .black_overlay{
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            background-color: black;
+            z-index:1001;
+            opacity:0.4;
+        }
+        .white_content_small {
+            display: none;
+            position: fixed;
+            top: 30%;
+            z-index:1002;
+            max-width: 609px;
+            width:90%;
+            height:238px;
+            background-image: url("images/alert.png");
+            background-repeat: no-repeat;
+            background-size:100%;text-align: center;
+        }
+        .ps{
+            color:#999999;margin-left:2%;margin-right:3%;
+        }
+        .pi{
+            border: 1px solid #f99302;border-radius: 4px;width:50%
+        }
+        .pii{
+            color:#ffffff;border: none;background-color:#f99302;border-radius: 4px;padding:4px 6%;margin-right:2%;
+        }
+        .piii{
+            color:#f99401;border: 1px solid #f99401;background-color: transparent;border-radius: 4px;padding:4px 6%;
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $().ready(function(){
+            $("#close").click(function(){//弹窗关闭
+                $("#MyDiv").css("display","none");
+                $("#fade").css("display","none");
+            })
+            $("#login").click(function(){
+                $("#MyDiv").css("display","none");
+                $("#fade").css("display","none");
+            })
+            $("#content ul li").click(function(){
+                if($(this).index() == 0){
+                    location.href = "pOrders.html";
+                }else if($(this).index() == 1){
+                    location.href = "pTicket.html";
+                }else{
+                    location.href = "pCinema.html";
+                }
+            })
+        })
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+
+            $("#fade").height(window.screen.height);
+            var left = ($(document).width()-$("#MyDiv").width())/2;//动态计算让弹出框居中
+            $("#MyDiv").css("display","block");
+            $("#MyDiv").css("left",left);
+            $("#fade").css("display","block");
+            $("#errMsg").css("left",($("#MyDiv").width() - $("#errMsg").width())/2);/*错误信息居中*/
+
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            $("#content").css("height",$("#content").height()+$("#bottom").height());
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <div id="fade" class="black_overlay">
+        </div>
+        <div id="MyDiv" class="white_content_small">
+            <img id="close" style="width:24px;position: absolute;right: 10px;top: 5px;" src="images/close.png"/>
+            <p style="margin-top: 14%;margin-bottom: 2%;">
+                <span class="ps">手机号：</span>
+                <input class="pi" type="text"/>
+            </p>
+            <p>
+                <span class="ps">动态码：</span>
+                <input class="pi" type="text"/>
+            </p>
+            <p id="errMsg" style="display: block;position: absolute;color:#999999;">动态码输入错误</p>
+            <p style="margin-top: 8%;">
+                <input class="pii" type="button" value="免费获取动态码">
+                <input id="login" class="piii" type="button" value="登录">
+            </p>
+        </div>
+        <div id="header">
+            <img style="width:100%;" src="images/personal.png"/>
+        </div>
+        <div id="content">
+            <ul>
+                <li>
+                    <div style="width:100%;height:60px;line-height:60px;color:#7f7f7f;font-size:.14rem;">
+                        <img style="width: 20px;margin-left: 20px;margin-right: 24px;" src="images/personalDD.png"/>
+                        <span style="">我的订单</span>
+                        <img style="float:right;margin-top:22px;margin-right:20px;width: 10px;" src="images/right.png"/>
+                    </div>
+                </li>
+                <li>
+                    <div style="width:100%;height:60px;line-height:60px;color:#7f7f7f;font-size:.14rem;">
+                        <img style="width: 28px;margin-left: 16px;margin-right: 20px;" src="images/personalT.png"/>
+                        <span style="">通兑券</span>
+                        <img style="float:right;margin-top:22px;margin-right:20px;width: 10px;" src="images/right.png"/>
+                    </div>
+                </li>
+                <li>
+                    <div style="width:100%;height:60px;line-height:60px;color:#7f7f7f;font-size:.14rem;">
+                        <img style="width: 28px;margin-left: 16px;margin-right: 20px;" src="images/personalD.png"/>
+                        <span style="">电影票</span>
+                        <img style="float:right;margin-top:22px;margin-right:20px;width: 10px;" src="images/right.png"/>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div id="bottom">
+            <img id="map" style="width:100%;" src="images/bottom2.png" usemap="#planetmap"/>
+            <map name="planetmap">
+                <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+                </a>
+                <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+                </a>
+                <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+                </a>
+            </map>
+        </div>
+    </div>
+</body>
+</html>

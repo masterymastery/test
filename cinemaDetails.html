@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+<title></title>
+    <link href="css/cinemaDetails.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+<script src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script>
+    var myScroll, myScroll2;
+    document.addEventListener('touchmove', function (e) {
+       /* e.preventDefault();*/
+    }, false);
+    function init() {
+      /*  myScroll = new IScroll('#bannerImage', { scrollX: true, freeScroll: true, click: true, taps: true, zoom: true});*/
+        myScroll2 = new IScroll('#dateDiv', { scrollX: true, freeScroll: true, click: true, taps: true, zoom: true});
+        var x, y, w,h;/*算bottom的热区*/
+        var w = $(document).width()/3;
+        h = $("#map").height();
+        $("#area1").attr("coords","0,0,"+w+","+h+"");
+        $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+        $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+        /*底部固定*/
+        $("#bottom").css("top",window.screen.height- $("#bottom").height());
+        $("#wapper").css("height",$("#wapper").height()+$("#bottom").height());
+    }
+    var data1 = [
+        ["17:45", "19点结束", "国语3D", "15号厅"],
+        ["19:45", "21点结束", "国语3D", "16号厅"],
+        ["21:45", "23点结束", "国语6D", "17号厅"],
+        ["23:45", "1点结束", "国语3D", "18号厅"],
+        ["01:45", "3点结束", "国语3D", "19号厅"]
+    ];
+    var data2 = [
+        ["27:45", "19点结束", "国语3D", "15号厅"],
+        ["19:45", "21点结束", "国语3D", "16号厅"],
+        ["21:45", "23点结束", "国语6D", "17号厅"],
+        ["23:45", "1点结束", "国语3D", "18号厅"],
+        ["01:45", "3点结束", "国语3D", "19号厅"]
+    ];
+    var data3 = [
+        /*["37:45", "19点结束", "国语3D", "15号厅"],
+        ["19:45", "21点结束", "国语3D", "16号厅"],
+        ["21:45", "23点结束", "国语6D", "17号厅"],
+        ["23:45", "1点结束", "国语3D", "18号厅"],
+        ["01:45", "3点结束", "国语3D", "19号厅"]*/
+    ];
+    $().ready(function () {
+        /*生成分数 星星*/
+        var score = 9.0;
+        score = score.toFixed(1);
+        var star;
+        if(score>0 && score <=2){
+            star = 1;
+        }
+        else if(score>2 && score<=4){
+            star = 2;
+        }
+        else if(score>4 && score<=6){
+            star = 3;
+        }
+        else if(score>6 && score<=8){
+            star = 4;
+        }
+        else{
+            star = 5;
+        }
+        $span = $("<span id='scroe'>"+ score +"</span>");
+        for(var i = 0;i<star;i++){
+            $img = $("<img src='images/star.png'/>");
+            $img.appendTo($("#star"));
+        }
+        $span.appendTo($("#star"));
+        /*生成日期的宽度*/
+        var liWidth = $(window).width()/3;
+        var liLength = $("#date ul").children().length;
+        $("#date ul li").css("width",liWidth);
+        $("#date ul").css("width",liWidth*liLength);
+        $("#date").css("width",liWidth*liLength);
+
+        /*生成兑换信息*/
+        $ul = $("<ul id='ul0'></ul>");
+        for (var i = 0; i < data1.length; i++) {
+            $li = $("<li></li>");
+            for (var j = 0; j < data1[i].length; j+=2) {
+                $div1 = $("<div class='div1'></div>");
+                $startTime = $("<strong>" + data1[i][j] + "</strong>");
+                $startTime.appendTo($div1);
+                $endTime = $("<p class='small'>" + data1[i][j + 1] + "</p>");
+                $endTime.appendTo($div1);
+                $div1.appendTo($li);
+            }
+            $div3 = $("<div class='div3'></div>");
+            $charge = $("<span>立即兑换</span>");
+            $charge.appendTo($div3);
+            $div3.appendTo($li)
+            $li.appendTo($ul);
+        }
+        $ul.appendTo($("#dateDivContent"));
+
+        $ul = $("<ul id='ul1' style='display: none;'></ul>");
+        for (var i = 0; i < data2.length; i++) {
+            $li = $("<li></li>");
+            for (var j = 0; j < data2[i].length; j+=2) {
+                $div1 = $("<div class='div1'></div>");
+                $startTime = $("<strong>" + data2[i][j] + "</strong>");
+                $startTime.appendTo($div1);
+                $endTime = $("<p class='small'>" + data2[i][j + 1] + "</p>");
+                $endTime.appendTo($div1);
+                $div1.appendTo($li);
+            }
+            $div3 = $("<div class='div3'></div>");
+            $charge = $("<span>立即兑换</span>");
+            $charge.appendTo($div3);
+            $div3.appendTo($li)
+            $li.appendTo($ul);
+        }
+        $ul.appendTo($("#dateDivContent"));
+
+        $ul = $("<ul id='ul2' style='display: none;'></ul>");
+        for (var i = 0; i < data3.length; i++) {
+            $li = $("<li></li>");
+            for (var j = 0; j < data3[i].length; j+=2) {
+                $div1 = $("<div class='div1'></div>");
+                $startTime = $("<strong>" + data3[i][j] + "</strong>");
+                $startTime.appendTo($div1);
+                $endTime = $("<p class='small'>" + data3[i][j + 1] + "</p>");
+                $endTime.appendTo($div1);
+                $div1.appendTo($li);
+            }
+            $div3 = $("<div class='div3'></div>");
+            $charge = $("<span>立即兑换</span>");
+            $charge.appendTo($div3);
+            $div3.appendTo($li)
+            $li.appendTo($ul);
+        }
+        $ul.appendTo($("#dateDivContent"));
+
+
+        /*$("#cinemaImage").delegate("li", "click", function () {//点击影院介绍图
+            $(this).addClass("selected").siblings().removeClass("selected");
+            $(this).append("<style>#cinemaImage ul li.selected:after {content: '';position: absolute;width: 0;height: 0;line-height: 0;font-size: 0;border: 10px dashed transparent;border-bottom: 16px solid #fff;bottom: -12px;left: 50%;margin-left: -6px;}</style>");
+        })*/
+        $("#cinemaSynopsis").click(function(){//点击向右小箭头
+            location.href = "CinemaDetailsInner.html";
+        })
+        $("#date ul li").click(function () {//点击日期
+            $(this).addClass("dateSelected").siblings().removeClass("dateSelected");
+            var index = $(this).index();//将日期的index和下面的ul内容对应
+            $("#dateDivContent ul:eq("+ index +")").show("fast").siblings().hide();
+            var $ul = $("#dateDivContent ul:eq("+ index +")");
+            if($("#dateDivContent ul:eq("+ index +") li").length == 0 && $("#dateDivContent ul:eq("+ index +") p").length == 0){
+                var $text = $('<p style="padding:20px;">暂无排期</p>');
+                $text.appendTo($ul);
+            }
+        })
+        $("#dateDivContent ul").delegate("li","click",function(){
+            $("#fade").height($("#wapper").height());
+            var left = ($(document).width()-$("#MyDiv").width())/2;//动态计算让弹出框居中
+            $("#MyDiv").css("display","block");
+            $("#MyDiv").css("left",left);
+            $("#fade").css("display","block");
+            $("#errMsg").css("left",($("#MyDiv").width() - $("#errMsg").width())/2);/*错误信息居中*/
+        })
+        $("#dateDivContent .div3").click(function () {//点立刻兑换
+            $(this).parent().css("background-color", "#d9d8d4");
+        })
+        $("#close").click(function(){//弹窗关闭
+            $("#MyDiv").css("display","none");
+            $("#fade").css("display","none");
+        })
+        $("#submit").click(function(){
+            location.href = "selectSeatOnLine.html";
+        })
+
+    })
+</script>
+</head>
+<body onload="init()">
+<div id="wapper">
+    <div id="fade" class="black_overlay">
+    </div>
+    <div id="MyDiv" class="white_content_small">
+        <img id="close" style="width:24px;position: absolute;right: 10px;top: 5px;" src="images/close.png"/>
+        <p style="margin-top: 14%;margin-bottom: 2%;">
+            <span class="ps">手机号：</span>
+            <input class="pi" type="text"/>
+        </p>
+        <p>
+            <span class="ps">动态码：</span>
+            <input class="pi" type="text"/>
+        </p>
+        <p id="errMsg" style="display: block;position: absolute;color:#999999;">动态码输入错误</p>
+        <p style="margin-top: 8%;">
+            <input class="pii" type="button" value="免费获取动态码">
+            <input id="submit" class="piii" type="button" value="登录">
+        </p>
+    </div>
+    <div id="content">
+        <div id="innerContent">
+            <div id="cinemaIntro">
+                <p id="cinemaName">保利影城（苹果园店）</p>
+                <div id="star">
+                </div>
+                <p id="cinemaAddress">北京市石景山区阜石路165号华录大厦14层</p>
+            </div>
+            <div id="cinemaDetails">
+                <div id="cinemaSynopsis" style="text-align: left;position: relative;width:95%;margin:0 auto;">
+                    <p id="Name" style="margin-top:10px;margin-bottom:10px;" class="bold">白雪公主之神秘爸爸</p>
+                    <span>片长：</span><span id="footage" style="margin-right:.4rem;">105分钟</span>
+                    <span>类型：</span><span id="type">国语3D</span>
+                    <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><span>主演：</span><span id="Staring">马德华海登·克里斯滕森 / 尼古拉斯·凯奇 / 刘亦菲 / 安志杰 / 吉克隽逸 / 苏嘉航 / 王锦函
+                    </span></p>
+                    <img style="float:right;margin-right: .1rem;position: absolute;right: 0px;top: 6px;cursor: pointer;height: 36px;width:14px;height:26px;" src="images/rightArrow.png"/>
+                </div>
+                <div id="dateDiv">
+                    <div id="date">
+                        <ul>
+                            <li class="dateSelected"><span>8月18日</span></li>
+                            <li><span>8月19日</span></li>
+                            <li><span>8月20日</span></li>
+                            <li><span>8月21日</span></li>
+                            <li><span>8月22日</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="dateDivContent">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>

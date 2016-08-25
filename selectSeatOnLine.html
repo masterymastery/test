@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8" content="width = device-width,initial-scale=1,user-scalable=no" name="viewport">
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<script src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/iscroll-zoom.js"></script>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+        list-style-type: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    html {
+        font-size: 625%;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .gray {
+        color: #b5b4b0;
+    }
+
+    body {
+        background: #FFF none repeat scroll 0% 0%;
+        color: #333;
+        text-align: left;
+        font-family: "微软雅黑", Arial;
+        font-size: 0.16rem;
+    }
+
+    #wapper {
+        min-width: 2.4rem;
+        margin: 0px auto;
+        width: 100%;
+        max-width: 7.2rem;
+        position: relative;
+    }
+
+    #content {
+        text-align: center;
+        position: relative;
+    }
+
+    #innerContent {
+        max-width: 6.72rem;
+        background-color: #f7f5f2;
+        width: 100%;
+        margin: 0 auto;
+      /*  height: 8.95rem;*/
+    }
+
+    #cinemeIntro {
+        text-align: left;
+        color: black;
+        margin-left: .1rem;
+    }
+
+    #cinemaName {
+        font-size: .16rem;
+        font-weight: bold;
+        display: inline-block;font-family:'微软雅黑';
+    }
+
+    #cinemaType {
+        padding: .02rem .2rem;
+        background-color: #fc8c1c;
+        border-radius: .08rem;
+        color: white;
+    }
+
+    #seatIntro div {
+        width: 25%;
+        float: left;
+        font-size: .14rem;
+        border-top: 1px solid #c5c4bf;
+        padding-top: .08rem;
+        padding-bottom: .08rem;
+    }
+
+    #seatIntro div img {
+        width: 18px;
+        height: 15px;
+        margin-right: 2px;
+    }
+
+    #tableWapper {
+        overflow: hidden;
+        width: 100%;
+        background-color: #e0e0e0;
+        position: relative;
+       /* height:200px;*/
+    }
+
+    #tableWH {
+       /* width:600px;height:400px;*/
+    }
+
+    #cinemaTitle {
+        color: #e0e0e0;
+        background-color: #a8a8a8;
+        width: 2rem;
+        height: .3rem;
+        line-height: .3rem;
+        margin: 0 auto;
+    }
+
+    #table tr td {
+        display: block;
+        /*background-size: 18px 15px;
+        width: 18px;
+        height: 15px;
+        margin: .05rem;*/
+        float: left;
+        cursor: pointer;
+    }
+
+    .tdFirst {
+        line-height: 15px;
+    }
+
+    #count {
+        text-align: center;
+        width: 100%;
+        /*height: .45rem;*/
+       /* border-bottom: 1px solid #c5c4bf;*/
+        display:none;
+        padding-top: .05rem;
+        padding-bottom: .05rem;
+    }
+
+    #count span {
+        /*display: inline-block;
+        text-align: center;
+        width:21%;
+        height: .2rem;
+        line-height: .2rem;
+        border: 1px solid #ff8a02;
+        background-color: #f9a368;
+        margin: .04rem;
+        margin-top:0;
+        padding-top:.02rem; padding-bottom:.02rem;
+        color: #e0e0e0;
+        font-size: .14rem;*/
+        display: inline-block;
+        text-align: center;
+        width: 18%;
+        /*height: .18rem;
+        line-height: .18rem;*/
+        border: 1px solid #ff8a02;
+        background-color: #f9a368;
+        margin: .05rem;
+        margin-top: 0;
+        padding-top: .02rem;
+        padding-bottom: .02rem;
+        color: #FFFFFF;
+        font-size: .12rem;
+    }
+
+    #submit {
+        width: .8rem;
+        height: .28rem;
+        line-height: .28rem;
+        background-color: #dd615f;
+        float: right;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        font-size: .18rem;
+        margin-right: .1rem;
+        margin-top: -14px;
+    }
+    .none{
+        background:none;
+    }
+    .aviliable {
+        background: url(images/seat0.png);
+    }
+
+    .unaviliable {
+        background: url(images/seat1.png);
+    }
+
+    .selected {
+        background: url(images/seat2.png);
+    }
+
+    .couple {
+        background: url(images/seat3.png);
+    }
+
+    .black_overlay {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        opacity: 0.4;
+    }
+
+    .white_content_small {
+        display: none;
+        position: fixed;
+        top: 30%;
+        z-index: 1002;
+        max-width: 609px;
+        width: 90%;
+        height: 238px;
+        background-image: url("images/alert1.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .white_content_small p {
+        color: #999999;
+    }
+
+    .spin{
+        content: "";display: inline-block;margin: 0 15px 4px;padding: 0;border: 0;background: 0;width: 3px;height: 3px;border-radius: 100%;
+        box-shadow: 0 -10px 0 .9px #666,10px 0 #999,0 10px #999,-10px 0 #999,-7px -7px 0 .4px #999,7px -7px 0 1.1px #666,7px 7px #999,-7px 7px #999;
+        -webkit-transform: rotate(360deg);
+        -webkit-animation: spin 1.5s linear infinite;
+        transform: rotate(60deg);
+        animation: spin 1.5s linear infinite;
+    }
+    @keyframes spin {
+        from {
+            transform: rotate(0deg)
+        }
+        to {
+            transform: rotate(360deg)
+        }
+    }
+
+    @-webkit-keyframes spin {
+        from {
+            -webkit-transform: rotate(0deg)
+        }
+        to {
+            -webkit-transform: rotate(360deg)
+        }
+    }
+    #bottom{
+        position: fixed;
+    }
+</style>
+<script>
+    var myScroll;
+    document.addEventListener('touchmove', function (e) {
+        /*e.preventDefault();*/
+    }, false);
+    var map = [
+        'nnn-----',
+        'naanna--',
+        '______nn',
+        'aaaaaa--',
+        'aaaaaa--',
+        'aaaaaa--',
+        'aa__aa--'
+        /*'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa',
+        '----------aaaaaaa',
+        'aaaaaa----aaaa',
+        '______------12321',
+        'aaaaaa------11',
+        'aaaaaa---',
+        'aaaaaa------',
+        'aa__aa--aaaaaaaaaa',
+        'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa',
+        'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa',
+        '----------aaaaaaa',
+        'aaaaaa----aaaa',
+        '______------12321',
+        'aaaaaa------11',
+        'aaaaaa---',
+        'aaaaaa------',
+        'aa__aa--aaaaaaaaaa',
+        'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa',
+        'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa',
+        '----------aaaaaaa',
+        'aaaaaa----aaaa',
+        '______------12321',
+        'aaaaaa------11',
+        'aaaaaa---',
+        'aaaaaa------',
+        'aa__aa--aaaaaaaaaa',
+        'aa__aa------a1',
+        'aaaaaa------122',
+        'aaaaaa------',
+        '______------aaaaaa'*/
+    ];
+    function init() {
+        /*计算座位宽高*/
+        /*var screenWidth = document.documentElement.clientWidth * 0.95;*/
+        var seatWidth = 18;
+        /*计算最大列数*/
+        var length = [];
+        for(var i = 0; i < map.length; i++){
+            for (var j = 0; j < map[i].length; j++) {
+                length[i] = j;
+            }
+        }
+        var maxCol;/*最多一列个数*/
+        for(var i=0;i<length.length;i++){
+            if(length[i] > length [i+1]){
+                length[i+1] = length[i];
+            }
+            maxCol = length[length.length-1];
+        }
+        maxCol+=3;/*加一个表头序号*/
+        var Row = map.length +8;
+        var margin = 1;
+        var seatHeight = seatWidth - 3;
+        var screenWidth = maxCol*seatWidth + maxCol*margin*2;
+        var screenHeight = Row*seatHeight + Row*margin*2 + 30;/*实际长度*/
+        var tableWapperHeight = document.documentElement.clientHeight - $("#header").height() - 40 - $("#cinemeIntro").height() - 36;/*显示长度*/
+        $("#tableWH").css("width", screenWidth).css("height",screenHeight);
+        $("#tableWapper").css("height",tableWapperHeight);
+        myScroll = new IScroll('#tableWapper', { scrollX: true, scrollY: true, freeScroll: true, click: true, taps: true, zoom: true,mouseWheel: true,wheelAction: 'zoom'});
+        for (var i = 0; i < map.length; i++) {//遍历行数
+            var row = i + 1;
+            var $tr = $("<tr></tr>");//
+            var $tdFirst = $("<td class='tdFirst'>" + row + "</td>");//行标
+            var col = 0;
+            for (var j = 0; j < map[i].length; j++) {//遍历列数
+                if(map[i].charAt(j) != 'n' ){
+                    col++;
+                }
+                /*var col = j + 1;*/
+                if (map[i].charAt(j) == 'a') {//判断字符
+                    var $td = $("<td class='unaviliable' data-position='" + row + "排" + col + "座" + "'></td>");
+                }
+                else if(map[i].charAt(j) == 'n'){/*空气*/
+                    var $td = $("<td class='none'></td>");
+                }
+                else {
+                    var $td = $("<td class='aviliable' data-position='" + row + "排" + col + "座" + "'></td>");
+                }
+                $td.appendTo($tr);
+            }
+            $tdFirst.prependTo($tr);
+            $tr.appendTo($("#table"));
+        }
+        $("#table tr td").css({width:seatWidth,height:seatHeight,margin:margin}).css("background-size",""+seatWidth+"px "+seatHeight+"px");
+        $("#table").delegate(".aviliable", "click", function () {
+            $("#count").css("display","block");
+            $("#seatIntro").css("display","none");
+            var position = $(this).attr("data-position");
+            if ($(this).hasClass("selected")) {
+                $(this).removeClass("selected");
+                $("#" + position + "").remove();
+                $("#table tr td").each(function(){
+                    if(!$("#table tr td").hasClass("selected")){
+                        $("#seatIntro").css("display","block");
+                    }
+                })
+            }
+            else {
+                if (($("#count").children().length) >= 4) {
+                    var left = ($(document).width() - $("#MyDiv").width()) / 2;//动态计算让弹出框居中
+                    $("#MyDiv").css("display", "block");
+                    $("#MyDiv").css("left", left);
+                    $("#fade").css("display", "block");
+                }
+                else {
+                    $(this).addClass("selected");
+                    var $span = $("<span id='" + position + "'>" + position + "</span>");
+                    $span.appendTo($("#count"));
+                }
+            }
+        })
+        /*底部固定*/
+        $("#bottom").css("top",window.screen.height- $("#bottom").height());
+        $("#innerContent").css("height",$("#innerContent").height()+$("#bottom").height());
+    }
+    $().ready(function () {
+        $(".iKnow").click(function () {//弹窗关闭
+            $("#MyDiv").css("display", "none");
+            $("#fade").css("display", "none");
+        })
+        $("#submit").click(function(){
+            location.href = "CinemaPay.html";
+        })
+
+    })
+</script>
+</head>
+<body onload="init()">
+<div id="wapper">
+    <div id="fade" class="black_overlay">
+    </div>
+    <div id="MyDiv" class="white_content_small">
+        <p style="margin-top: 10%;margin-bottom: 5%;font-size: 1.1em;">
+            <span>最多只能选择4个座位</span>
+        </p>
+        <input class="iKnow" style="width:8em;height:2em;color:white;background-color: #dd615f;" type="button"
+               value="知道了"/>
+    </div>
+    <div id="MyDiv1" class="white_content_small">
+        <p style="margin-top: 10%;margin-bottom: 5%;font-size: 1.1em;">
+            <span>亲，你来晚了！换个座儿吧~</span>
+        </p>
+        <input class="iKnow" style="width:8em;height:2em;color:white;background-color: #dd615f;" type="button"
+               value="知道了"/>
+    </div>
+    <div id="content">
+        <div id="innerContent">
+            <div id="cinemeIntro">
+                <p style="padding-top: .05rem;padding-bottom: .01rem;">
+                    <span id="cinemaName">白雪公主之神秘爸爸</span>
+                    <!--<span id="cinemaType">国语2D</span>-->
+                </p>
+                <div>
+                <p style="margin-bottom: .08rem;display: inline-block;font-size: .12rem;">
+                    8月18日（今日）15:50开场
+                </p>
+                <input id="submit" value="选好了" type="button"/>
+                </div>
+            </div>
+            <div id="seatIntro">
+                <div>
+                    <img src="images/seat0.png"/><span>可选</span>
+                </div>
+                <div>
+                    <img src="images/seat1.png"/><span>已售</span>
+                </div>
+                <div>
+                    <img src="images/seat2.png"/><span>已选</span>
+                </div>
+                <div>
+                    <img src="images/seat3.png"/><span>情侣座</span>
+                </div>
+            </div>
+            <div id="count">
+            </div>
+
+            <div id="tableWapper">
+                <div id="tableWH">
+                    <p id="cinemaTitle">7号银幕厅</p>
+                    <table id="table">
+                    </table>
+                </div>
+            </div>
+
+            <!--<div style="padding: 100px 0;text-align: center;/* display: none; */color: #999;">
+                   <span class="spin">
+               </span>正在努力加载...
+               </div>-->
+        </div>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>

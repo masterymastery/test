@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;color:#929191;
+        }
+        #header{
+            background-color:#f6f6f6;
+            width:95%;margin: 0 auto;
+        }
+        .hTop{
+            padding-top:8%;padding-left: 6%;
+        }
+        .hBottom{
+            padding-top:8%;padding-left:4%;
+        }
+        .iText{
+            text-align: center;width:60px;height:30px;margin-left:5px;margin-right:5px;border-radius:4px;
+            border:1px solid #dcdcdc;background-color: rgb(237,235,236);color:#f89300;
+        }
+        .operator{
+            width:30px;height:30px;border-radius:4px;border:1px solid #dcdcdc;display:inline-block;font-size:.2rem;
+            text-align: center;font-weight:bold;color:#f89300;
+        }
+        .hSubmit{
+            text-align:center;width:90%;margin: 0 auto;padding-top:8%;padding-bottom:4%;
+        }
+        .hSubmit input{
+            color:#ffffff;width:40%;border-radius: 8px;background-color:#f89300;border:none;font-size:.164rem;
+            padding-top:8px;padding-bottom:8px;
+        }
+        #tipsT{
+            width:90%;margin: 0 auto;margin-top:8px;
+        }
+        #tipsC{
+            width:90%;margin: 0 auto;font-size:.14rem;
+        }
+        #contentT{
+            width:90%;margin: 0 auto;
+        }
+        .contentC{
+            width:90%;margin: 0 auto;
+        }
+        .contentC span{
+            width:33%;display: inline-block;text-align: center;font-size:.14rem;
+        }
+        #bottom{
+            position: fixed;
+        }
+        .dark{
+            color:#272727;
+        }
+        .black_overlay{
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            background-color: black;
+            z-index:1001;
+            opacity:0.4;
+        }
+        .white_content_small {
+            display: none;
+            position: fixed;
+            top: 30%;
+            z-index:1002;
+            max-width: 609px;
+            width:90%;
+            height:238px;
+            background-image: url("images/alert.png");
+            background-repeat: no-repeat;
+            background-size:100%;text-align: center;
+        }
+        .ps{
+            color:#999999;margin-left:2%;margin-right:3%;
+        }
+        .pi{
+            border: 1px solid #f99302;border-radius: 4px;width:50%
+        }
+        .pii{
+            color:#ffffff;border: none;background-color:#f99302;border-radius: 4px;padding:4px 6%;margin-right:2%;
+        }
+        .piii{
+            color:#f99401;border: 1px solid #f99401;background-color: transparent;border-radius: 4px;padding:4px 6%;
+        }
+        #city
+        {
+            background: none repeat scroll 0% 0% #ffffff;
+            position: absolute;
+            z-index: 1000;
+            min-width: 240px;
+            width: 100%;
+            max-width: 672px;
+            display:none;
+        }
+        #city table
+        {
+            min-width: 240px;
+            width: 100%;
+            max-width: 720px;
+            border-collapse: collapse;
+            border: none;
+        }
+        #city td{
+            border: solid rgb(229,229,227) 1px;width:25%;text-align:center;line-height: 46px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+        }
+        #city th
+        {
+            background-color: rgb(232,232,232);margin-bottom: 10px;margin-top:15px;text-align: left;text-indent:15px;line-height: 36px;
+            color: rgb(137,137,137);
+        }
+        #city td a
+        {
+            display:block;
+            color: rgb(0,0,0);
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        function showCity() {//显示城市列表
+            $("#city").show("fast");
+        }
+        $().ready(function(){
+            $("#city").click(function(){
+                $("#city").hide("fast");
+            })
+            $("#close").click(function(){/*弹窗关闭*/
+                $("#MyDiv").css("display","none");
+                $("#fade").css("display","none");
+            })
+            $("#submit").click(function(){/*弹窗打开*/
+                $("#fade").height($("#wrapper").height());
+                var left = ($(document).width()-$("#MyDiv").width())/2;/*动态计算让弹出框居中*/
+                $("#MyDiv").css("display","block");
+                $("#MyDiv").css("left",left);
+                $("#fade").css("display","block");
+                $("#errMsg").css("left",($("#MyDiv").width() - $("#errMsg").width())/2);/*错误信息居中*/
+            })
+            $("#submit1").click(function(){/*登录*/
+                location.href = "TicketPay.html";
+            })
+            $("#area td a").click(function () {//点击区域选择
+                $("#area").hide('fast');
+                areaP = false;
+            })
+            $("#area td a").css("width",$(window).width()/4);
+            $("#minus").click(function(){
+                var text = $(this).siblings("input").val();
+                if(text > 1){
+                    text--;
+                }
+                $(this).siblings("input").val(text);
+            })
+            $("#add").click(function(){
+                var text = $(this).siblings("input").val();
+                text++;
+                $(this).siblings("input").val(text);
+            })
+        })
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            $("#wrapper").css("height",$("#wrapper").height()+$("#bottom").height());
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <div id="fade" class="black_overlay">
+        </div>
+        <div id="MyDiv" class="white_content_small">
+            <img id="close" style="width:24px;position: absolute;right: 10px;top: 5px;" src="images/close.png"/>
+            <p style="margin-top: 14%;margin-bottom: 2%;">
+                <span class="ps">手机号：</span>
+                <input class="pi" type="text"/>
+            </p>
+            <p>
+                <span class="ps">动态码：</span>
+                <input class="pi" type="text"/>
+            </p>
+            <p id="errMsg" style="display: block;position: absolute;">动态码输入错误</p>
+            <p style="margin-top: 8%;">
+                <input class="pii" type="button" value="免费获取动态码">
+                <input id="submit1" class="piii" type="button" value="登录">
+            </p>
+        </div>
+        <div id="city">
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">A-G</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('安徽');">安徽</a></td>
+                    <td><a href="javascript:cityChange('北京');">北京</a></td>
+                    <td><a href="javascript:cityChange('重庆');">重庆</a></td>
+                    <td><a href="javascript:cityChange('福建');">福建</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('甘肃');">甘肃</a></td>
+                    <td><a href="javascript:cityChange('广东');">广东</a></td>
+                    <td><a href="javascript:cityChange('广西');">广西</a></td>
+                    <td><a href="javascript:cityChange('贵州');">贵州</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">H-K</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('海南');">海南</a></td>
+                    <td><a href="javascript:cityChange('河北');">河北</a></td>
+                    <td><a href="javascript:cityChange('黑龙江');">黑龙江</a></td>
+                    <td><a href="javascript:cityChange('河南');">河南</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('湖北');">湖北</a></td>
+
+                    <td><a href="javascript:cityChange('湖南');">湖南</a></td>
+
+                    <td><a href="javascript:cityChange('江西');">江西</a></td>
+
+                    <td><a href="javascript:cityChange('江苏');">江苏</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('吉林');">吉林</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">L-S</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('辽宁');">辽宁</a></td>
+                    <td><a href="javascript:cityChange('内蒙古');">内蒙古</a></td>
+                    <td><a href="javascript:cityChange('宁夏');">宁夏</a></td>
+                    <td><a href="javascript:cityChange('青海');">青海</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('山东');">山东</a></td>
+
+                    <td><a href="javascript:cityChange('上海');">上海</a></td>
+
+                    <td><a href="javascript:cityChange('山西');">山西</a></td>
+
+                    <td><a href="javascript:cityChange('陕西');">陕西</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('四川');">四川</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">T-Z</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('天津');">天津</a></td>
+                    <td><a href="javascript:cityChange('西藏');">西藏</a></td>
+                    <td><a href="javascript:cityChange('新疆');">新疆</a></td>
+                    <td><a href="javascript:cityChange('云南');">云南</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('浙江');">浙江</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="header">
+            <div class="hTop">
+                <p><span>商品类型</span><span style="float:right;padding-right:12%;">购买数量</span></p>
+            </div>
+            <div class="hBottom">
+                <p>
+                    <span class="dark">35元通兑券</span>
+                    <span style="float:right;padding-right:2%;">
+                        <span id="minus" class="operator">-</span>
+                        <input class="iText"type="text" value="1"/><span id="add" class="operator">+</span>
+                    </span>
+                </p>
+            </div>
+            <div class="hSubmit">
+                <input id="submit" type="button" value="提交订单"/>
+            </div>
+        </div>
+        <img style="width:95%;margin: 0 auto;display: block;" src="images/screenBottom.png"/>
+        <div id="tipsT">
+            <p>购买须知：</p>
+        </div>
+        <hr/>
+        <div id="tipsC">
+            <p style="margin-top:5px;">有效期：<span class="dark">2015-10-26至2015-11-30</span></p>
+            <p style="margin-top:10px;margin-bottom:10px;">使用方式：<span class="dark">购买成功后，可进入影院选择页选择影院。支持在线选座和通兑券兑换，具体方式由影院决定。</span></p>
+            <p style="margin-bottom:15px;">限价片条款：<span class="dark">限价片补差价规则，以影院公示为准。</span></p>
+        </div>
+        <hr/>
+        <div id="contentT">
+            <p><span>适用影院：</span><span onclick="showCity()" style="float:right;text-decoration:underline;margin-right:4%;">城市选择</span></p>
+        </div>
+        <hr/>
+        <div class="contentC">
+            <span>万达影城</span><span>万达影城</span><span>万达影城</span>
+        </div>
+        <hr/>
+        <div class="contentC">
+            <span>万达影城</span><span>万达影城</span><span>万达影城</span>
+        </div>
+        <hr/>
+        <div class="contentC">
+            <span>万达影城</span><span>万达影城</span><span>万达影城</span>
+        </div>
+        <hr/>
+        <div class="contentC">
+            <span>万达影城</span><span>万达影城</span><span>万达影城</span>
+        </div>
+        <hr/>
+        <div class="contentC">
+            <span>万达影城</span><span>万达影城</span><span>万达影城</span>
+        </div>
+        <hr/>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</body>
+</html>

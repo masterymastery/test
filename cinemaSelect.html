@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width = device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <meta content ="minimum-scale=1.0, maximum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        var areaP = false;
+        var cityP = false;
+        function showArea() {//显示区域列表
+            if ($("#city").css("display") == "block") {
+                $("#city").hide('fast');
+                $("#area").show('fast');
+                areaP = true;
+                cityP = false;
+            } else {
+                if (areaP == false) {
+                    $("#area").show('fast');
+                    areaP = true;
+                } else {
+                    $("#area").hide('fast');
+                    areaP = false;
+                }
+            }
+        }
+        function showCity() {//显示城市列表
+            if ($("#area").css("display") == "block") {
+                $("#area").hide('fast');
+                $("#city").show('fast');
+                cityP = true;
+                areaP = false;
+            } else {
+                if (cityP == false) {
+                    $("#city").show('fast');
+                    cityP = true;
+                } else {
+                    $("#city").hide('fast');
+                    cityP = false;
+                }
+            }
+        }
+        var flag = false;
+        var isTicket = false;
+        $().ready(function(){
+            $("#close").click(function(){//弹窗关闭
+                $(".Ticket").removeClass("addBk");
+                $("#MyDiv").css("display","none");
+                $("#fade").css("display","none");
+            })
+            $("#innerContent ul li").click(function(){//点击影院
+                var left = ($(document).width()-$("#MyDiv").width())/2;//动态计算让弹出框居中
+                $("#MyDiv").css("display","block");
+                $("#MyDiv").css("left",left);
+                $("#fade").css("display","block");
+                /*$(this).children(".selectTicketOrSeat").css("display","block").end().siblings().children(".selectTicketOrSeat").css("display","none");
+                if($(this).children(".selectTicketOrSeat").children("div").length == 1 && $(this).children(".selectTicketOrSeat").children("div").hasClass("Seat")){
+                    $(this).children(".selectTicketOrSeat").children("div").css("border-bottom","none");
+                }*/
+            })
+            /*$(".Ticket").click(function(){//点击兑换券
+                $(this).addClass("addBk");
+                var left = ($(document).width()-$("#MyDiv").width())/2;//动态计算让弹出框居中
+                $("#MyDiv").css("display","block");
+                $("#MyDiv").css("left",left);
+                $("#fade").css("display","block");
+            })
+            $(".Seat").click(function(){//点击在线选座
+                $(this).addClass("addBk");
+                location.href = "";
+            })*/
+            $("#submit").click(function(){//兑换券提交
+                location.href = "successWeixin.html";
+                $("#MyDiv").css("display","none");
+                $("#fade").css("display","none");
+            })
+            $("#area td a").click(function () {//点击区域选择
+                $("#area").hide('fast');
+                areaP = false;
+            })
+            $("#city td a").click(function () {//点击城市选择
+                $("#city").hide('fast');
+                cityP = false;
+            })
+            $("#area td a").css("width",$(window).width()/4);
+        })
+    </script>
+</head>
+<body>
+    <div id="wapper">
+    <div id="fade" class="black_overlay">
+    </div>
+    <div id="MyDiv" class="white_content_small">
+        <p style="margin-top: 10%;margin-bottom: 5%;font-size: 1.2em;">
+            <span>我要兑换</span>
+            <input value="1" style="border: none;border-bottom: 1px solid #999999;background-color: #fffefe;width:10%;text-align: center;font-size: 1em;" type="text">
+            <span>张</span>
+        </p>
+        <img id="close" style="width:20px;position: absolute;right: 10px;top: 5px;" src="images/close.png"/>
+        <input id="submit" style="width:8em;height:2em;color:white;background-color: #dd615f;" type="button" value="确定" />
+    </div>
+        <div id="banner">
+            <div id="gps">
+                <img src="images/set.png"/>
+                <span id="position">北京西城区</span>
+            </div>
+            <div id="areaName" onclick="showArea()">
+                <span>市区</span>
+                <img style="width: 20px;" src="images/down.png">
+            </div>
+            <div id="provinceName" onclick="showCity()">
+                <span>省份</span>
+                <img style="width: 20px;" src="images/down.png"/>
+            </div>
+        </div>
+        <div id="content">
+        <div id="area">
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('太原');">安徽</a></td>
+                    <td><a href="javascript:cityChange('运城');">北京</a></td>
+                    <td><a href="javascript:cityChange('吕梁');">重庆</a></td>
+                    <td><a href="javascript:cityChange('临汾');">福建</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('阳泉');">甘肃</a></td>
+                    <td><a href="javascript:cityChange('交城');">广东</a></td>
+                    <td><a href="javascript:cityChange('大同');">广西</a></td>
+                    <td><a href="javascript:cityChange('忻州');">忻州</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="city">
+            <div>
+
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">A-G</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('安徽');">安徽</a></td>
+                    <td><a href="javascript:cityChange('北京');">北京</a></td>
+                    <td><a href="javascript:cityChange('重庆');">重庆</a></td>
+                    <td><a href="javascript:cityChange('福建');">福建</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('甘肃');">甘肃</a></td>
+                    <td><a href="javascript:cityChange('广东');">广东</a></td>
+                    <td><a href="javascript:cityChange('广西');">广西</a></td>
+                    <td><a href="javascript:cityChange('贵州');">贵州</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">H-K</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('海南');">海南</a></td>
+                    <td><a href="javascript:cityChange('河北');">河北</a></td>
+                    <td><a href="javascript:cityChange('黑龙江');">黑龙江</a></td>
+                    <td><a href="javascript:cityChange('河南');">河南</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('湖北');">湖北</a></td>
+
+                    <td><a href="javascript:cityChange('湖南');">湖南</a></td>
+
+                    <td><a href="javascript:cityChange('江西');">江西</a></td>
+
+                    <td><a href="javascript:cityChange('江苏');">江苏</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('吉林');">吉林</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">L-S</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('辽宁');">辽宁</a></td>
+                    <td><a href="javascript:cityChange('内蒙古');">内蒙古</a></td>
+                    <td><a href="javascript:cityChange('宁夏');">宁夏</a></td>
+                    <td><a href="javascript:cityChange('青海');">青海</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('山东');">山东</a></td>
+
+                    <td><a href="javascript:cityChange('上海');">上海</a></td>
+
+                    <td><a href="javascript:cityChange('山西');">山西</a></td>
+
+                    <td><a href="javascript:cityChange('陕西');">陕西</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('四川');">四川</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4">T-Z</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="javascript:cityChange('天津');">天津</a></td>
+                    <td><a href="javascript:cityChange('西藏');">西藏</a></td>
+                    <td><a href="javascript:cityChange('新疆');">新疆</a></td>
+                    <td><a href="javascript:cityChange('云南');">云南</a></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:cityChange('浙江');">浙江</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <div id="innerContent">
+                <ul>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院（石景山店）</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院（石景山店）</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li><li>
+                    <div class="contentTop">
+                        <span class="cinemaName">星美影院（石景山店）</span>
+                    </div>
+                    <div class="contentBottom">
+                        <img class="house" src="images/house.png"/>
+                        <span class="address">西城区马连道25号新年华购物广场5层</span>
+                    </div>
+                </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li><li>
+                    <div class="contentTop">
+                        <span class="cinemaName">星美影院（石景山店）</span>
+                    </div>
+                    <div class="contentBottom">
+                        <img class="house" src="images/house.png"/>
+                        <span class="address">西城区马连道25号新年华购物广场5层</span>
+                    </div>
+                </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li><li>
+                    <div class="contentTop">
+                        <span class="cinemaName">星美影院（石景山店）</span>
+                    </div>
+                    <div class="contentBottom">
+                        <img class="house" src="images/house.png"/>
+                        <span class="address">西城区马连道25号新年华购物广场5层</span>
+                    </div>
+                </li>
+                    <li>
+                        <div class="contentTop">
+                            <span class="cinemaName">星美影院</span>
+                        </div>
+                        <div class="contentBottom">
+                            <img class="house" src="images/house.png"/>
+                            <span class="address">西城区马连道25号新年华购物广场5层</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

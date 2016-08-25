@@ -1,0 +1,259 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    font-size: 625%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.gray {
+    color: #b5b4b0;
+}
+
+body {
+    background: #FFF none repeat scroll 0% 0%;
+    color: #333;
+    text-align: left;
+    font-family: "微软雅黑", Arial;
+    font-size: 0.16rem;
+}
+
+#wapper {
+    min-width: 2.4rem;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 7.2rem;
+    position: relative;
+}
+
+#header {
+    height: .4rem;
+    width: 100%;
+    max-width: 7.2rem;
+    overflow: hidden;
+    z-index: 9999;
+    background: RGB(239, 200, 188) none repeat scroll 0% 0%;
+}
+
+#header img {
+
+}
+
+#content {
+    text-align: center;
+    position: relative;
+}
+
+#innerContent {
+    max-width: 6.72rem;
+    background-color: #f4f3ed;;
+    width: 100%;
+    margin: 0 auto;
+    /*height: 10.95rem;*/
+}
+
+#cinemaIntro {
+    width: 90%;
+    text-align: left;
+    margin-left: .1rem;
+}
+
+#cinemaName {
+    font-size: .2rem;
+    font-weight: bold;
+    margin-bottom: .05rem;
+}
+
+#cinemaAddress {
+    font-size: .12rem;
+    margin-top: .2rem;
+    margin-bottom: .15rem;
+    color: black;
+}
+
+#star {
+    position: relative;
+}
+
+#star img {
+    vertical-align: bottom;
+    width: .16rem;margin-right:.05rem;
+}
+
+#scroe {
+    position: absolute;
+    top: .02rem;color:#fe8417;margin-left: .05rem;
+}
+
+#banner {
+    border-top: 1px dashed #da4e7f;
+    text-align: left;
+}
+
+#banner .ying {
+    color: white;
+    width: .22rem;
+    height: .22rem;
+    text-align: center;
+    line-height: .22rem;
+    background-color: #ff8d1d;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#bannerTop {
+    margin-left: .1rem;
+    margin-top: .1rem;
+    margin-bottom: .05rem;
+}
+
+#bannerTop .lightRed {
+    color: #d86061;
+}
+
+#bannerImage {
+    overflow: hidden;
+    position: relative;background-color: rgb(221, 97, 95);height:1.35rem;
+}
+
+#cinemaImage {
+  /*  width: 7.5rem;*/
+    height: 1.2rem;
+    background-color: rgb(221, 97, 95);
+}
+
+#cinemaImage ul {
+    position: absolute;
+  /*  width: 7.5rem;*/
+    height: 1.2rem;top:.15rem;
+}
+
+#cinemaImage ul li {
+    float: left;
+    position: relative;
+}
+
+#cinemaImage img {
+    width: .75rem;
+    height: 1.04rem;
+    margin-right:5px;
+   /* border-right:5px solid white;*/
+}
+
+.selected {
+
+}
+
+#cinemaDetails {
+    margin-top: .1rem;
+}
+#cinemaSynopsis span{
+    font-size: .12rem;
+}
+
+#dateDiv {
+     position: relative;
+     overflow: hidden;
+ }
+
+#date {
+    margin-top:.1rem;
+    height: .32rem;
+}
+
+#date ul {
+    position: absolute;
+    height: .5rem;
+    line-height: .2rem;
+    margin-top: .1rem;
+}
+
+#date ul li {
+    float: left;
+    cursor: pointer;
+}
+
+.dateSelected {
+    color: #df5e59;
+    border-bottom: 1px solid #df5e59;
+}
+
+#dateDivContent ul li {
+    border-bottom: 1px solid #c9c8c4;
+    height: .6rem;
+}
+
+#dateDivContent div {
+    float: left;
+    width: 33%;
+    margin-top: .12rem;
+}
+
+.div3 {
+    width: .8rem;
+    height: .3rem;
+    line-height: .3rem;
+    color: white;
+    font-weight: bold;
+}
+
+.div3 span {
+    width: .8rem;
+    height: .3rem;
+    background-color: #d63e3d;
+    display: block;
+    margin-left: .1rem;
+}
+
+.small {
+    font-size: .12rem;
+    color: #b5b4b2;
+}
+
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    background-color: black;
+    z-index:1001;
+    opacity:0.4;
+}
+.white_content_small {
+    display: none;
+    position: fixed;
+    top: 30%;
+    z-index:1002;
+    max-width: 609px;
+    width:90%;
+    height:238px;
+    background-image: url("../images/alert.png");
+    background-repeat: no-repeat;
+    background-size:100%;text-align: center;
+}
+.ps{
+    color:#999999;margin-left:2%;margin-right:3%;
+}
+.pi{
+    border: 1px solid #f99302;border-radius: 4px;width:50%
+}
+.pii{
+    color:#ffffff;border: none;background-color:#f99302;border-radius: 4px;padding:4px 6%;margin-right:2%;
+}
+.piii{
+    color:#f99401;border: 1px solid #f99401;background-color: transparent;border-radius: 4px;padding:4px 6%;
+}
+#bottom{
+    position:fixed;
+}

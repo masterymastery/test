@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;
+        }
+        #content ul li{
+            border-bottom:1px solid #dcdcdc;
+        }
+        #bottom{
+            position: fixed;
+        }
+        #content ul li{
+            border-bottom: 1px solid #dcdcdc;padding: 10px;display: block;
+        }
+        .info{
+            float: right;text-align: right;
+        }
+        .score{
+            color: #ff9a00;font-size: 26px;line-height: 24px;white-space: nowrap;
+        }
+        .cinemaDetails{
+            font-size: .12rem;color:#929191;margin-left: 88px;
+        }
+        .cinemaDetails p{
+            line-height: 22px;;
+        }
+        .cinemaName{
+            color:#272727;font-size:.16rem;margin-bottom: 6px;display: inline-block;
+        }
+        .dark{
+            color:#272727;
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            $("#content").css("height",$("#content").height()+$("#bottom").height());
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <div id="content">
+            <ul>
+                <li>
+                <span class="info">
+                        <span style="color:rgb(127,127,127)">￥</span><span class="score">55</span>
+                    </span>
+                    <img style="float:left;width:61px;" src="images/tongduiPic.png"/>
+                    <div class="cinemaDetails">
+                        <p class="cinemaName">九层妖塔</p>
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/quan.png"/>取票号：<span class="dark" style="margin-right:10px;">475656</span> 验证码：<span class="dark">475656</span></p>
+                        <p>购买时间：<span class="dark">2015-10-26 15:30:10</span></p>
+                        <p>观影时间：<span class="dark">2015-10-26 15:30:10</span></p>
+                        <p>观影信息：<span class="dark">万达马连道店/5号厅/06排05座,06排06座,06排07座,06排08座</span></p>
+                    </div>
+                </li>
+                <li>
+                    <img style="float:left;width:61px;" src="images/duihuanPic.png"/>
+                    <div class="cinemaDetails">
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/quan.png"/>万达电子码：<span class="dark">47565688894226</span></p>
+                        <p>兑换时间：<span class="dark">2015-10-26 15:30:10</span></p>
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/time.png"/>影票类型：<span class="dark">3D影票</span></p>
+                        <p>影院名称：<span class="dark">万达马连道店</span></p>
+                        <p>有效期：<span class="dark">2015-10-26至2015-11-31有效</span></p>
+                    </div>
+                </li>
+                <li>
+                    <img style="float:left;width:61px;" src="images/duihuanPic.png"/>
+                    <div class="cinemaDetails">
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/quan.png"/>万达电子码：<span class="dark">47565688894226</span></p>
+                        <p>兑换时间：<span class="dark">2015-10-26 15:30:10</span></p>
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/time.png"/>影票类型：<span class="dark">3D影票</span></p>
+                        <p>影院名称：<span class="dark">万达马连道店</span></p>
+                        <p>有效期：<span class="dark">2015-10-26至2015-11-31有效</span></p>
+                    </div>
+                </li>
+                <li>
+                    <img style="float:left;width:61px;" src="images/duihuanPic.png"/>
+                    <div class="cinemaDetails">
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/quan.png"/>万达电子码：<span class="dark">47565688894226</span></p>
+                        <p>兑换时间：<span class="dark">2015-10-26 15:30:10</span></p>
+                        <p style="margin-left:-24px;"><img style="margin-left:5px;margin-right: 5px;width:15px;" src="images/time.png"/>影票类型：<span class="dark">3D影票</span></p>
+                        <p>影院名称：<span class="dark">万达马连道店</span></p>
+                        <p>有效期：<span class="dark">2015-10-26至2015-11-31有效</span></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="bottom">
+            <img id="map" style="width:100%;" src="images/bottom2.png" usemap="#planetmap"/>
+            <map name="planetmap">
+                <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+                </a>
+                <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+                </a>
+                <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+                </a>
+            </map>
+        </div>
+    </div>
+</body>
+</html>

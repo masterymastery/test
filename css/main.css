@@ -1,0 +1,71 @@
+#wrapper {
+    min-width: 240px;margin: 0px auto;width: 100%;max-width: 720px;position: relative;
+}
+
+#banner{
+    border-top:2px solid #dcdcdc;border-bottom:1px solid #dcdcdc;width:100%;position: relative;margin:15px auto 10px;
+}
+.bannerImg{
+   padding-top:20px;padding-bottom: 20px;margin-left: 5px;margin-right:5px;float:left;
+}
+
+.contentTop{
+    text-align: center;height:40px;border-bottom: 1px solid #dcdcdc;
+}
+.contentTop span{
+    padding:5px 10px;border-radius: 10px;display: inline-block;
+}
+.noSelect{
+    color:#7f7f7f;background-color: #ffffff;
+}
+.select{
+    color:#ffffff;background-color: #fab149;
+}
+
+#content ul li{
+    border-bottom: 1px solid #dcdcdc;padding: 10px;display: block;
+}
+.info{
+    float: right;
+    /*padding: 10px 10px 0 0;*/
+    text-align: right;
+}
+.score{
+    display: block;
+    color: #ff9a00;
+    font-size: 20px;
+    line-height: 24px;
+    white-space: nowrap;
+}
+.btn-trans{
+    margin-top:32px;
+    font-size: .14rem;
+    padding: 6px 4px;
+    background-color: #f99302;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    white-space: nowrap;
+}
+.cinemaDetails{
+    font-size: .12rem;color:#929191;margin-left: 70px;margin-right: 80px;
+}
+.cinemaName{
+    color:#272727;font-size:.16rem;margin-bottom: 20px;display: inline-block;margin-right: 5px;
+}
+.imax{
+    width: 26px;height: 12px;
+}
+.dd{
+      width: 14px;
+      height: 12px;
+  }
+.zhuyan{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#bottom{
+    position:fixed;
+}

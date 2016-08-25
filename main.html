@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>首页</title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        var d = [{ "score":"8.0",  "cinemaName":"九层妖塔",  "type":"3" ,"kind":"探险，寻宝","director":"陆川","actor":"陈佩斯/朱时茂/葛优/冯巩/牛群"},
+            { "score":"8.1",  "cinemaName":"十层妖塔",  "type":"2" ,"kind":"探险，寻宝","director":"陆川","actor":"陈佩斯/朱时茂/葛优/冯巩/牛群"},
+            { "score":"8.2",  "cinemaName":"三层妖塔",  "type":"1" ,"kind":"探险，寻宝","director":"陆川","actor":"陈佩斯/朱时茂/葛优/冯巩/牛群"},
+            { "score":"8.3",  "cinemaName":"六层妖塔",  "type":"2" ,"kind":"探险，寻宝","director":"陆川","actor":"陈佩斯/朱时茂/葛优/冯巩/牛群"},
+            { "score":"8.4",  "cinemaName":"一百层妖塔",  "type":"1" ,"kind":"探险，寻宝","director":"陆川","actor":"陈佩斯/朱时茂/葛优/冯巩/牛群"}];
+        $().ready(function () {
+            $(".contentTop span").click(function () {
+                if ($(this).hasClass("noSelect")) {
+                    $(this).removeClass("noSelect");
+                    $(this).addClass("select").siblings().removeClass("select").addClass("noSelect");
+                }
+                if($(this).index() == 0){
+                    $("#ing").css("display","block").siblings("ul").css("display","none");
+                }else{
+                    if($("#future li").length == 0){
+                        for(var i = 0;i< d.length;i++){
+                            var $li = $("<li></li>");
+                            var $span = $("<span class='info'>" +
+                                    "<span class='score'>"+ d[i].score +"</span>" +
+                                    "</span>");
+                            var $img = $('<img style="float:left;width:61px;" src="images/tongduiPic.png"/>');
+                            var $div = $('<div class="cinemaDetails"></div>');
+                            var $p1 = $('<p class="cinemaName">'+d[i].cinemaName+'</p>');
+                            var $type;
+                            if(d[i].type == 3){
+                                $type= $('<img class="imax" src="images/imax.png"/>');
+                            }else if(d[i].type == 2){
+                                $type= $('<img class="dd" src="images/3d.png"/>');
+                            }else if(d[i].type == 1){
+                                $type= $('<img class="dd" src="images/2d.png"/>');
+                            }
+                            var $p = $('<p>类型：<span>'+d[i].kind+'</span></p>'+
+                                    '<p>导演：<span>'+d[i].director+'</span></p>'+
+                                    '<p class="zhuyan">主演：<span>'+d[i].actor+'</span></p>');
+                            $p1.appendTo($div);
+                            $type.appendTo($div);
+                            $p.appendTo($div);
+                            $span.appendTo($li);
+                            $img.appendTo($li);
+                            $div.appendTo($li);
+                            $li.appendTo("#future");
+                        }
+                    }
+                    $("#future").css("display","block").siblings("ul").css("display","none");
+                }
+            })
+            for(var i = 0;i< d.length;i++){
+                var $li = $("<li></li>");
+                    var $span = $("<span class='info'>" +
+                            "<span class='score'>"+ d[i].score +"</span>" +
+                            "<span class='btn-trans' href='#'>在线选座</span>" +
+                            "</span>");
+                    var $img = $('<img style="float:left;width:61px;" src="images/tongduiPic.png"/>');
+                    var $div = $('<div class="cinemaDetails"></div>');
+                    var $p1 = $('<p class="cinemaName">'+d[i].cinemaName+'</p>');
+                    var $type;
+                    if(d[i].type == 3){
+                        $type= $('<img class="imax" src="images/imax.png"/>');
+                    }else if(d[i].type == 2){
+                        $type= $('<img class="dd" src="images/3d.png"/>');
+                    }else if(d[i].type == 1){
+                        $type= $('<img class="dd" src="images/2d.png"/>');
+                    }
+                    var $p = $('<p>类型：<span>'+d[i].kind+'</span></p>'+
+                            '<p>导演：<span>'+d[i].director+'</span></p>'+
+                            '<p class="zhuyan">主演：<span>'+d[i].actor+'</span></p>');
+                    $p1.appendTo($div);
+                    $type.appendTo($div);
+                    $p.appendTo($div);
+                    $span.appendTo($li);
+                    $img.appendTo($li);
+                    $div.appendTo($li);
+                $li.appendTo("#ing");
+            }
+
+            $("#banner img").click(function(){
+                location.href = "TicketSelect.html";
+            })
+            $("#content ul").delegate("li", "click", function () {//点击整个大框
+               location.href = "cinemaSelect2.html";
+            })
+        })
+        function init() {/*凡是需要先加载图再计算的都在init里面写*/
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+            /*计算banner高 banner里图的宽 小图的宽*/
+            var margin = 5;
+            var width = ($(document).width() - margin * 6) / 3;
+            $(".bannerImg").css("width", width);
+            $("#banner").css("height", $(".bannerImg").height() + 40);
+            /*写边框需要宽高*/
+            var sW = $(document).width();
+            var bannerImg2WidthGenne;
+            if (sW > 400) {
+                bannerImg2WidthGenne = 20;
+            } else if (sW >= 375 && sW <= 400) {
+                bannerImg2WidthGenne = 15;
+            } else {
+                bannerImg2WidthGenne = 10;
+            }
+            $(".bannerImg2").css("width", $(".bannerImg").width() / 2 - bannerImg2WidthGenne);
+            /*底部固定*/
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            $("#content").css("height",$("#content").height()+$("#bottom").height());
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="wrapper">
+    <div id="header">
+        <img style="width:100%;" src="images/start_japan_bg_f78ac7e.png"/>
+    </div>
+    <div id="banner">
+        <img class="bannerImg" src="images/tongdui1.png"/>
+        <img class="bannerImg" src="images/tongdui2.png"/>
+        <img class="bannerImg" src="images/tongdui3.png"/>
+        <img class="bannerImg2" style="position: absolute;left:10px;top:-8px;" src="images/tongdui.png"/>
+    </div>
+    <div id="content">
+        <div class="contentTop">
+            <span class="select">正在热映</span>
+            <span class="noSelect">即将上映</span>
+        </div>
+        <ul id="ing">
+
+        </ul>
+        <ul id="future" style="display: none;">
+
+        </ul>
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>

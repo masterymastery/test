@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;
+        }
+        #innerContent {
+            max-width: 6.72rem;
+            background-color: #f7f5f2;
+            position: relative;
+        }
+
+        #cinemaIntro {
+            position: absolute;
+            top: 0px;
+            color: white;
+            margin-left:10%;
+            left:0px;
+            margin-top:.4rem;
+        }
+
+        #cinemaName {
+            font-size: .16rem;
+            font-weight: bold;
+            margin-bottom: .05rem;
+        }
+
+        #star {
+            position: relative;
+        }
+
+        #star img {
+            vertical-align: bottom;
+            width: .16rem;margin-right:.05rem;
+        }
+        #scroe {
+            position: absolute;
+            top: .02rem;color:#fe8417;margin-left: .05rem;
+        }
+        .descript{
+            font-size: .12rem;
+        }
+        #innerBottom{
+            width:100%;background-color: #ffffff;position: absolute;top:180px;
+        }
+        #movieIntro{
+            width:92%;text-align: left;margin:0 auto;color:rgb(107,107,107);font-size:.14rem;
+        }
+        #bottom{
+            position: fixed;
+        }
+        .dark{
+            color:#272727;
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        $().ready(function(){
+            $("#submit").click(function(){
+                location.href = "cinemaDetails.html";
+            })
+        })
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+            var score = 8.0;
+            score = score.toFixed(1);
+            var star;
+            if(score>0 && score <=2){
+                star = 1;
+            }
+            else if(score>2 && score<=4){
+                star = 2;
+            }
+            else if(score>4 && score<=6){
+                star = 3;
+            }
+            else if(score>6 && score<=8){
+                star = 4;
+            }
+            else{
+                star = 5;
+            }
+            $span = $("<span id='scroe'>"+ score +"</span>");
+            for(var i = 0;i<star;i++){
+                $img = $("<img src='images/star.png'/>");
+                $img.appendTo($("#star"));
+            }
+            $span.appendTo($("#star"));
+            /*如果介绍部分过短，强制让他盖住背景图*/
+            $("#innerBottom").css("height",$("#bgImage").height()-parseInt($("#innerBottom").css("top"))+2);
+            /*固定在屏幕的底部*/
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            /*如果介绍部分过长，加上底部的高度，达到完全展示*/
+            $("#movieIntro").height($("#movieIntro").height() + $("#bottom").height()) ;
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <div id="innerContent">
+            <img id="bgImage" style="width:100%;opacity:0.6;" src="images/2.jpg">
+            <div id="cinemaIntro">
+                <div style="text-align: left;float:right;padding-top: 4px;">
+                    <p id="cinemaName">终结者之创世纪</p>
+                    <div id="star">
+                    </div>
+                    <p class="descript">动作冒险科幻</p>
+                    <p class="descript">IMAX，3D</p>
+                    <p class="descript">2015年8月25日大陆上映</p>
+                </div>
+                <img style="width:75px;height:104px;margin-right:.2rem;" src="images/2.jpg"/>
+            </div>
+            <div id="innerBottom">
+                <div id="movieIntro">
+                    <p style="margin-top:20px;margin-bottom: 10px;"><i>导演：</i><span class="dark">斯皮尔伯格·赵四</span></p>
+                    <p style="margin-bottom: 10px;"><i>主演：</i><span class="dark">斯皮尔伯格·赵四/小沈阳/宋小宝/谢大脚/大辣椒/药匣子</span></p>
+                    <i class="bold" style="font-size: .14rem;text-align: justify;line-height: .24rem;">剧情简介:</i>
+                    <span class="dark" style="text-align: justify;line-height: .24rem;font-size: .14rem;">
+                        动作导演袁和平也对梁朝伟的武戏表现自信满满：“伟仔目前的状态用‘巅峰’二字形容最合适不过。我从来不担心他的身手，经过多年精心训练，梁朝伟对咏春拳的掌握早已超出一般练武之人的境界。而且他悟性高，学习快，与甄子丹相比，伟仔的功夫已经拥有自己的风格，论身型，比子丹更潇洒。
+　　梁朝伟版叶问身穿黑色长衫头戴白色礼帽，脸色冷峻眼光凌厉，似乎更加西化一些。最令我意想不到的是，他的脚踢得好有力，很有拍动作片的天分。”
+　　从曝光的宣传册来看，章子怡近乎素颜，展现出超越以往的成熟冷艳气质，造型素雅柔韧中蕴含刚劲。章子怡的加盟，也是《一代宗师》吸引国际目光的砝码。据了解，从2009年开始，章子怡在王家卫、袁和平的指导下开始了严格系统的形体、武术训练，在片中究竟饰演叶问夫人还是另一位武功高强的女宗师，片方尚未公开。
+　　此次王家卫携手袁和平，两位大牌导演联合创作《一代宗师》，选择在全球最大的电影交易市场亮相，登陆华语片最难攻克的北美市场。影片甫一亮相就成为全场片商和媒体追逐的焦点，显示出强大的海外吸引力。
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            <input id="submit" style="width:100%;color:#ffffff;background-color: rgb(249,147,2);height:36px;line-height: 36px;border:none;" type="button" value="立即购票"/>
+            <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+            <map name="planetmap">
+                <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+                </a>
+                <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+                </a>
+                <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+                </a>
+            </map>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <style>
+        #wrapper {
+            min-width: 240px;margin: 0px auto;width: 100%;max-width:720px;position: relative;color:#929191;
+        }
+        #header{
+            background-color: #f6f6f6;width:95%;margin: 0 auto;text-align: center;padding-top:40px;
+            padding-bottom:50px;
+        }
+        .hTop{
+            padding-top:8%;padding-left: 6%;
+        }
+        .hSubmit{
+            text-align:center;width:90%;margin: 0 auto;padding-top:8%;padding-bottom:4%;
+        }
+        .hSubmit input{
+            color:#ffffff;width:60%;border-radius: 8px;background-color:#f89300;border:none;font-size:.16rem;
+            padding-top:8px;padding-bottom:8px;
+        }
+        #bottom{
+            position: fixed;
+        }
+    </style>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        function init(){
+            var x, y, w,h;/*算bottom的热区*/
+            var w = $(document).width()/3;
+            h = $("#map").height();
+            $("#area1").attr("coords","0,0,"+w+","+h+"");
+            $("#area2").attr("coords",""+w*2+",0,"+w+","+h+"");
+            $("#area3").attr("coords",""+w*4+",0,"+w+","+h+"");
+
+            $("#bottom").css("top",window.screen.height- $("#bottom").height());
+            $("#tips").css("top",$(document).height()- $("#bottom").height() -50);
+            $("#tips").css("top",$(document).height()- $("#bottom").height() -50);
+            if($("#wrapper").width()- $("#tips").width() >= 20){/*适配*/
+                $("#tips").css("left",($("#wrapper").width()- $("#tips").width())/2);
+            }else{
+                $("#tips").css("margin-left","5%").css("width","90%");
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="wrapper">
+    <div id="header">
+        <p>
+            <img style="width:50px;margin-top: -8px;" src="images/failure.png"/>
+            <span style="font-size:20px;color:#f89300;margin-left:5px;">支付失败</span>
+        </p>
+        <p style="color:#7f7f7f;padding-top:40px;margin:0 auto;font-size:.14rem;width:80%;">尊敬的用户您好，由于网络故障，您的订单支付失败请重新支付。谢谢您的体谅！</p>
+    </div>
+    <img style="width:95%;margin: 0 auto;display: block;" src="images/screenBottom.png"/>
+    <div class="hSubmit">
+        <input type="button" value="去支付"/>
+    </div>
+    <div id="tips" style="color:#7f7f7f;font-size:.14rem;position: absolute;">
+        提示：未兑换通兑券，可在个人中心前往兑换页面兑换。
+    </div>
+    <div id="bottom">
+        <img id="map" style="width:100%;" src="images/bottom.png" usemap="#planetmap"/>
+        <map name="planetmap">
+            <area id="area1" href="main.html" shape="rect" coords="0,0,100,40">
+            </a>
+            <area id="area2" href="#2" shape="rect" coords="200,0,100,40">
+            </a>
+            <area id="area3" href="pMain.html" shape="rect" coords="400,0,100,40">
+            </a>
+        </map>
+    </div>
+</div>
+</body>
+</html>
