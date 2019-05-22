@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+
+<body style="margin:0px;">
+
+  <button id="test">Click</button>
+  <script>
+
+    function bind(body, method) {
+      return function () {
+        return body[method].apply(body, arguments);
+      }
+    }
+    //手写bind方法
+    Function.prototype.bind = function (context) {
+      //self就是调用的方法
+      var self = this; //this => Function
+      return function () {
+        return self.apply(context, arguments)
+      }
+    }
+    //手写call方法，不用return function 
+    Function.prototype.myCall = function (context) {
+      if (typeof this !== 'function') {
+        throw new TypeError('Error')
+      }
+      context = context || window
+      context.fn = this
+      const args = [...arguments].slice(1)
+      const result = context.fn(...args)
+      delete context.fn
+      return result
+    }
+    var button = {
+      // self : this,
+      clicked: false,
+      click: function () {
+        // var self = this;
+        this.clicked = true;
+        console.log(this);
+      }
+    }
+    //button.click(); //this指向 { clicked: false, click: ƒ }
+
+    var el = document.getElementById("test");
+    //创造一个bind函数，模拟原生的bind函数，改变上下文环境
+    //el.addEventListener('click', bind(button, 'click'), false);//this指向 <button id="test">Click</button>
+
+    //使用bind直接传递需要的this环境，这里是button
+    //el.addEventListener('click', button.click.bind(button), false);//this指向 <button id="test">Click</button>
+
+    //这种绑定方法的写法不能用call和apply，因为这两个是直接调用方法，so只能用bind()
+    el.addEventListener('click', button.click.bind(button), false);//this指向 <button id="test">Click</button>
+   // button.click.call(button);
+    //console.log(button.clicked);
+  </script>
+</body>
+
+</html>

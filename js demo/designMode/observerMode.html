@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>observerMode</title>
+</head>
+<!-- 观察者模式：发布订阅模式
+    概念：
+    订阅者：各地的基站，功能是通过卫星订阅飞机的信息
+    观察者：卫星，功能是给订阅者发布消息，接收订阅者订阅信息，删除订阅信息
+    被观察者：飞机，功能是给观察者发消息
+-->
+
+<body style="margin:0px;">
+    <script>
+        
+        class observer {
+            constructor() {
+
+            }
+            message = [];
+            //注册
+            regist = function () { };
+            //发布
+            fire = function () { };
+            //移除
+            remove = function () { };
+
+        }
+        //定义观察者
+        var Observer = (function () {
+            //私有变量
+            var message = [];
+            return {
+                //注册
+                regist: function () { },
+                //发布
+                fire: function () { },
+                //移除
+                remove: function () { }
+            }
+        })();
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>test</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        function makeCtor(className) {
+            function constructor() {
+                return this.constructor.apply(this, arguments) || null;
+            }
+            if (className) {
+                constructor.name = className;
+            }
+            return constructor;
+        }
+        var A = makeCtor('A');
+        var result = 1;
+        function add(...args) {
+            var fn = add;
+            var _result;
+            _result = getResult();
+            for (var i = 0; i < arguments.length; i++) {
+                _result *= arguments[i];
+            }
+            setResult(_result);
+            function setResult() {
+                this.result = _result;
+            }
+            function getResult() {
+                return this.result;
+            }
+            return fn || _result;
+        }
+        add(1, 2)(3)(4, 5);
+        console.log(result);
+    </script>
+</body>
+
+</html>

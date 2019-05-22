@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>quickSort</title>
+</head>
+<!--
+    给定一个二叉树，找出其最大深度。
+    二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+    叶子节点是指没有子节点的节点。
+-->
+
+<body style="margin:0px;">
+    <script>
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val) {
+         *     this.val = val;
+         *     this.left = this.right = null;
+         * }
+         */
+        var arr = [3, 2, 1, 4, 5/* , 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 */];
+        var bst = new BST();
+        var arr2 = [1, 2, 4, 6, 7, 8, 9, 112, 3, 9, 20, null, null, 15, 7, 0];
+        var bbst = {
+            val: 1,
+            left: {
+                val: 2,
+                /* left: {
+                    val: 6,
+                    left:{
+                        value:112
+                    }
+                },
+                right: {
+                    val: 7
+                } */
+            },
+            right: {
+                val: 4,
+                left: {
+                    val: 8
+                },
+                right: {
+                    val: 9
+                }
+            }
+        }
+        function maxDepth(root) {
+            //终止条件：当树为空时结束递归，并返回当前深度0
+            if (root == null) {
+                return 0;
+            }
+            //root的左、右子树的最大深度
+            var leftDepth = maxDepth(root.left);
+            var rightDepth = maxDepth(root.right);
+            //返回的是左右子树的最大深度+1
+            return Math.max(leftDepth, rightDepth) + 1;
+        };
+
+        arr2.forEach(function (item) {
+            bst.insert(item);
+        })
+        console.log(bst);
+        console.log(this.maxDepth(bbst));
+        //单节点
+        function Node(value, left, right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
+        //总数据
+        function BST() {
+            this.root = null;
+            this.insert = insert;
+        }
+        //插入一个节点的方法，属于BST
+        function insert(value) {
+            //创建一个节点，只有当前的值，左右节点先写成null
+            var node = new Node(value, null, null);
+            //根节点判断，只在第一次运行时执行
+            //this指向BST
+            if (this.root == null) {
+                this.root = node;
+            } else {
+                //保存当前父节点
+                var current = this.root;
+                var parent;
+                while (true) {
+                    if (current.value > value) {
+                        if (current.left === null) {
+                            current.left = node;
+                            break;
+                        }
+                        current = current.left;
+                    }
+                    else {
+                        if (current.right === null) {
+                            current.right = node;
+                            break;
+                        }
+                        current = current.right;
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

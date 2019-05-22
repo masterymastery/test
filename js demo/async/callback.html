@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>callback</title>
+</head>
+<!-- 回调函数的写法，调接口时传入一个回调函数，接口执行成功执行这个方法 -->
+<body style="margin:0px;">
+    <script>
+        function trigger() {
+            this.getData('参数1', '参数2', this.successCallBack());
+        }
+        function getData(data1, data2, successCallBack) {
+            var self = this;
+            $.ajax({
+                url: "test.html",
+                data: data1 + data2,
+                success: function () {
+                    successCallBack(response);
+                },
+                failure: function () {
+                    console.log('数据调用失败')
+                }
+            });
+        }
+        function successCallBack(data) {
+            console.log(data);
+        }
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+
+<body style="margin:0px;">
+  <script>
+    /*代码执行过程，在1ms左右，for循环执行5次，也就是下面的代码按照顺序1ms内
+    setTimeout(fn,1000)setTimeout(fn,2000)setTimeout(fn,3000)
+    setTimeout(fn,4000)setTimeout(fn,5000)执行5次 ，然后i变成了5
+    每次执行都将回调函数放入执行栈的最后，放入五个回调函数
+    然后按照timer依次执行五个回调函数，回调函数中打印的i是5
+     */
+    for (var i = 1; i <= 5; i++) {
+      setTimeout(function () {
+        console.log(i);
+      }, i * 1000)
+    }
+    //解决办法使用闭包，将i传递给j，在function内部保护住不被清理
+    for (var i = 1; i <= 5; i++) {
+      function haha(j) {
+        setTimeout(function () {
+          //闭包保存了j 
+          console.log(j);
+          //外面的参数j会正常执行
+        }, j * 1000)
+      }
+      haha(i);
+    }
+    var _setTimeout = function (fn, time) {
+
+    }
+
+    //用let就相当于闭包，创建了一个封闭的空间
+    for (let i = 1; i <= 5; i++) {
+      setTimeout(function () {
+        console.log(i);
+      }, i * 1000)
+    }
+    
+    
+    function Ninja() {
+      //写了this就是加入对象的原型中
+      //不写this就是Ninja域中的变量，外部也访问不了
+      var feints = 0;
+      var aaa = 6;
+      function test() {
+        feints++;
+      }
+      this.getFeints = function () {
+        return feints;
+      }
+      this.feintsAdd = function () {
+        test();
+        feints++;
+        console.log(aaa);
+      }
+
+    }
+    var ninja = new Ninja();
+    ninja.feintsAdd();
+    console.log(ninja.getFeints());
+
+  </script>
+  <div id="app"></div>
+
+</body>
+
+</html>

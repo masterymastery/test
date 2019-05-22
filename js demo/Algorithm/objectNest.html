@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>objectNest</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        var arr = ['a', 'b', 'c' , 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n' ];
+        var obj = {};
+        var a = obj
+        quickSort(arr);
+        console.log(obj);
+        function quickSort(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                var key = arr[i];
+                if (i === arr.length - 1) {
+                    a[key] = 6
+                } else {
+                    a[key] = a[key] || {}
+                    a = a[key]
+                }
+            }
+        }
+        const result = {};
+        [{
+            key: 'a.b.c.d.e.f.g.h',
+            value: 1
+        }, {
+            key: 'a.b.e',
+            value: 2
+        }].forEach(item => {
+            const keys = item.key.split('.')
+            let a = result
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                if (i === keys.length - 1) {
+                    a[key] = item.value
+                } else {
+                    a[key] = a[key] || {}
+                    a = a[key]
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

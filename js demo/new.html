@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>new</title>
+</head>
+<!-- new实现的功能
+1.创建一个对象并return
+2.此对象有构造函数的this（可以访问构造函数的属性和方法）
+3.此对象可以访问构造函数原型链上的属性和方法
+4.执行构造函数中的代码 -->
+
+<body style="margin:0px;">
+    <script>
+        function A(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        A.prototype.sex = '男';
+        function _new(Obj, ...args) {
+            var obj = {};
+            Obj.apply(obj, args);
+            //__proto__指向父类的原型对象
+            obj.__proto__ = Obj.prototype;
+            //下面的方法是同样的效果
+            //Object.setPrototypeOf(obj,Obj.prototype);
+            return obj;
+        }
+        var a = _new(A,'aa',20);
+        console.log(a);
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

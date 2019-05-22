@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<!-- call和apply的原理：改变调用者的this，指向参数中传递的对象或函数 -->
+
+<body style="margin:0px;">
+    <script>
+        var obj = {
+            name: "obj",
+            f: function (age, sex) {
+                console.log(this.name + ' ' + age + ' ' + sex);
+            }
+        }
+        var bbj = {
+            name: "bbj"
+        }
+        //obj.f();
+        //obj.f.call(bbj);//把obj内部的this指向bbj
+        Function.prototype.myCall = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            //如果不传参数就是window
+            context = context || window;
+            //这个this，就是function，赋给参数的一个临时属性
+            context.fn = this;
+            //将参数变成数组，剥离出function需要的参数，传多参数的情况，删除第一个对象（bbj）
+            //如果只有一个参数，就是function不需要传参，args是null
+            const args = [...arguments].slice(1);
+            //console.log("args:" + args);
+            //调用function，传入剥离出的参数，
+            const result = context.fn(...args);
+            // console.log("result:" + result);
+            //删除临时变量，会不会有什么问题
+            delete context.fn;
+            return result;
+        }
+        obj.f.myCall(bbj, 12, '男');
+    </script>
+</body>
+
+</html>

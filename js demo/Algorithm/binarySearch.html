@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>binarySearch</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 44, 86];
+        var result = binary_search(arr, 86);
+        console.log(result);   // 9
+
+        function binary_search(arr, target) {
+            var minIndex = 0,
+                maxIndex = arr.length - 1;
+
+            while (minIndex <= maxIndex) {
+                var midIndex = parseInt((maxIndex + minIndex) / 2);
+                 console.log(midIndex+'----'+maxIndex+'----'+minIndex);
+                if (target == arr[midIndex]) {
+                    return midIndex;
+                } else if (target > arr[midIndex]) {
+                    minIndex = midIndex + 1;
+                } else {
+                    maxIndex = midIndex - 1;
+                }
+            }
+            return -1
+        }
+    </script>
+</body>
+
+</html>

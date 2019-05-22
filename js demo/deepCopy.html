@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>deepCopy</title>
+</head>
+<!-- 
+    var old = { a:1 , b:[1,2]};
+    浅复制的意思是只复制了指针，没有复制内存，实现方法
+    1.var n = Object.assign();n只是一个old指针的副本，各自修改都会影响同一块内存
+    2.var n = old;这和上面的效果一样
+    深复制的意思是开辟了一块新内存，新的指针指向这块新内存，新旧互不影响，实现方法：
+    1.var n = {}; n.a = old.a; 这样n.a就是一块新内存地址了
+    问题是，如果old.b是一个引用类型，这么传递给n，还是复制了一个指针，如
+    n.b = old.b;n.b和old.b指向同一块内存，怎么解决这个问题呢
+    n.b = [];n.b[0] = old.b[0];n.b[1] = old.b[1];这样就开辟出了一块新的内存
+    两者互不影响，实现了深复制
+    所以就是for循环，递归使用开辟空间的方式进行多层深复制，问题是原型链，dom结构无法复制
+    2.Json.parse(Json.stringfy(obj)) 问题：会忽略 undefined
+    会忽略 symbol，不能序列化函数，不能解决循环引用的对象
+    3.使用 lodash 的深拷贝函数
+
+ -->
+
+<body style="margin:0px;">
+    <script>
+        var copy;
+        var ori = {
+            o0: 1,
+            o1: [1, 2, 3, 4]
+        };
+        copy = JSON.parse(JSON.stringify(ori));
+
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

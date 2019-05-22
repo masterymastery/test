@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>promise</title>
+</head>
+<!-- promise的基础语法，new的时候传入一个回调函数，回调函数的参数两个回调函数
+    是promise成功或失败后调用的回调函数
+    与回调函数并没有什么优势而言 -->
+<body style="margin:0px;">
+    <script>
+        function trigger() {
+            let self = this;
+            let promise = new Promise(function (resolve, reject) {             
+                $.ajax({
+                    url: "test.html",
+                    data: data1 + data2,
+                    success: function () {
+                        self.resolve(response);
+                    },
+                    failure: function () {
+                        self.reject('error');
+                    }
+                });
+            });
+        }
+        function resolve(data) {
+            console.log(data);
+        }
+        function reject(data) {
+            console.log(data);
+        }
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

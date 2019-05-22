@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>访问器属性</title>
+</head>
+<!-- 观察者模式：发布订阅模式
+    订阅者：用户，注册就是绑定模板，确定要的对象信息
+    观察者：Object数据劫持机制，劫持所有对象信息并发给订阅者
+    被观察者：所有VUE中的对象，所有的动态都会被内部机制监测到
+-->
+
+<body style="margin:0px;">
+    <script>
+        var test = {
+            book: 1
+        };
+        Object.defineProperty(test, 'book',  {
+            get : function () {
+                console.log('get')
+            },
+            set : function () {
+                console.log('set')
+            }
+        })
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

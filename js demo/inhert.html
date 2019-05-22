@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>inhert</title>
+</head>
+<body style="margin:0px;">
+    <script>
+        function Super() {
+            this.name = 'super';
+        }
+        Super.prototype.getName = function () {
+            return this.name;
+        }
+        function Sub() {
+            this.age = 12;
+        }
+        //等同于Sub.prototype = new Super(); 区别在于Sub._proto_多了一层Function
+        //因为创造了一个function，function的实力首先原型对象是Function，Function的
+        //原型对象再是Super()
+        //Sub.prototype = Object.create(Super);
+        Sub.prototype = new Super();
+        //Sub.prototype.constructor = Sub;//知道new的机制，就知道为什么要修正构造指针了
+        var sub = new Sub();
+
+        //Sub.__proto__ 指向Object
+        //Sub.prototype 指向Super
+        //Sub.constructor 指向Object的构造函数
+        //Sub.prototype.constructor 指向Super
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>promise</title>
+</head>
+<!-- 用asnyc await改写promise多层回调，和all方法 
+     async函数的返回值是 Promise 对象，可以用then方法指定下一步的操作。
+     async函数完全可以看作多个异步操作，包装成的一个 Promise 对象，
+     而await命令就是内部then命令的语法糖。
+     await后面要跟promise，如果没有就自动转成promise，
+     返回一个resolve的promise，连着写await省去了写then的代码，
+     从语义化上来看是同步代码，实际执行的是异步方法
+     难点是错误处理，如果中间的await报错，就不会往下执行，需要做错误处理
+     用try包裹要检测的await，catch中抛出错误信息，参数获取到reject返回值
+-->
+
+<body style="margin:0px;">
+    <script>
+        /*  //返回一个resolve的promise
+         async function test() {
+             console.log(123)
+             return '执行完了'
+         }
+         test().then(re => console.log(re));
+         test().then(function (re) {
+             return console.log(re)
+         });
+         //如果不return 返回值为undefined
+         //reject方法。将reject状态return出去。
+         async function PromiseError() {
+             return Promise.reject('has Promise Error');
+         }
+         PromiseError().then(success => console.log('成功', success))
+             .catch(error => console.log('失败', error));
+  */
+        //用asnyc await 重写promise
+        function trigger1(str) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    console.log(`${str} 第一个`);
+                    resolve(`${str} 第一个`);
+                }, 1000);
+            })
+        }
+        function trigger2(res) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    console.log(`${res} 第二个`);
+                    // resolve(`${res} 第二个`);
+                    reject('第二个出错了');
+                }, 1000);
+            })
+        }
+        function trigger3(res) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    console.log(`${res} 第三个`);
+                    resolve(`${res} 第三个`);
+                }, 1000);
+            })
+        }
+        async function trigger() {
+            var res1 = await trigger1('小鸡儿');
+            try {
+                var res2 = await trigger2(res1);
+            } catch (error) {
+                res2 = error;
+            }
+            var res3 = await trigger3(res2);
+            return '全执行完了'
+        }
+        trigger().then(re => console.log(re));
+    </script>
+    <div id="app"></div>
+
+</body>
+
+</html>
