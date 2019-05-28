@@ -33,6 +33,48 @@
                 }
             }
         };
+        var t1 = {
+            val: 1,
+            left: {
+                val: 3,
+                left: {
+                    val: 5
+                }
+            },
+            right: {
+                val: 2
+            }
+        }
+        var t2 = {
+            val: 2,
+            left: {
+                val: 1,
+                right: {
+                    val: 4
+                }
+            },
+            right: {
+                val: 3,
+                right: {
+                    val: 7
+                }
+            }
+        }
+        var t3 = {
+            val: 1,
+            right: {
+                val: 2
+            }
+        }
+        var t4 = {
+            val: 2,
+            left: { val: 1 },
+            right: { val: 3 }
+        }
+        var t5 = {
+            val: 1
+        }
+        var t6 = null;
         invertTree(tree);
         function invertTree(root) {
             if (root == null) {
@@ -45,7 +87,28 @@
             root.right = temp;
             return root;
         };
-        console.log(tree);
+        function mergeTrees(t1, t2) {
+            if (!t1 && t2) {
+                t1 = t2;
+                return t1;
+            }
+            else if (t1 && t2) {
+                t1.val = t1.val + t2.val;
+            } else {
+                return;
+            }
+            var leftReturn = mergeTrees(t1.left, t2.left);
+            if (leftReturn) {
+                t1.left = leftReturn;
+            }
+            var rightReturn = mergeTrees(t1.right, t2.right);
+            if (rightReturn) {
+                t1.right = rightReturn;
+            }
+            return t1;
+        };
+        console.log(mergeTrees(t5, t6));
+        //console.log(tree);
     </script>
 </body>
 
