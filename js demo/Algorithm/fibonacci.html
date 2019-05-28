@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Fibonacci</title>
+</head>
+<!--
+    菲波那切数列是指当前项的值时前两项的值相加
+    [0,1,1,2,3,5,8,13,21,34,55]
+-->
+
+<body style="margin:0px;">
+    <script>
+        function fib(val){
+            if(val < 2){
+                return val;
+            }
+            return fib(val-1) + fib(val-2);
+        }
+        console.log(fib(15));    
+
+    </script>
+</body>
+
+</html>

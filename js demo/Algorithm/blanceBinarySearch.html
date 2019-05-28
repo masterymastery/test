@@ -11,7 +11,7 @@
 
 <body style="margin:0px;">
     <script>
-        
+
         //二叉排序树
         function BtreeNode(data) {
             this.data = data;
@@ -287,12 +287,40 @@
             }
             return true;
         }
-        var arr = [1, 2,  3, 4, 5/* , 6, 7, 8, 9, 10, 11, 12, 13, 14 , 15, 16, 17, 18, 19, 20  */];
+        var arr = [1, 2, 3, 4, 5,/*  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 */];
         var b = new BtreeNode(0);
-        arr.forEach(function(item){
+        arr.forEach(function (item) {
             b.insertAVL(new BtreeNode(item)).btree;
         })
-        console.info(b);
+        // console.info(b);
+        console.log(isSymmetric(b));
+        function isSymmetric(root) {
+            //镜像条件：1.两颗树的根节点相同
+            //2.左树left等于右树Right，右树left等于左树right
+            if (!root) {
+                return false;
+            }
+            if (!root.lchild || !root.rchild) {
+                return false;
+            }
+
+            var leftTree = root.lchild;
+            var rightTree = root.rchild;
+            var val = (leftTree.data === rightTree.data);
+            var left = false, right = false;
+            if (leftTree.lchild != null && leftTree.rchild != null &&
+            rightTree.lchild != null && rightTree.rchild != null) {
+                left = (leftTree.lchild.data === rightTree.rchild.data);
+                right = (leftTree.rchild.data === rightTree.lchild.data);
+            }
+
+            if (val && left && right) {
+                return true;
+            } else {
+                isSymmetric(root.lchild);
+                isSymmetric(root.rchild);
+            }
+        }
     </script>
 </body>
 
