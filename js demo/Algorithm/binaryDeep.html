@@ -49,15 +49,15 @@
             }
         }
         function maxDepth(root) {
-            //终止条件：当树为空时结束递归，并返回当前深度0
+            //终止条件：节点无，每次搜索到头深度就是0
             if (root == null) {
                 return 0;
             }
-            //root的左、右子树的最大深度
-            var leftDepth = maxDepth(root.left);
-            var rightDepth = maxDepth(root.right);
-            //返回的是左右子树的最大深度+1
-            return Math.max(leftDepth, rightDepth) + 1;
+            //累加下一层的深度要加1
+            var leftDepth = maxDepth(root.left) + 1;
+            var rightDepth = maxDepth(root.right) + 1;
+            //返回深度
+            return Math.max(leftDepth, rightDepth);
         };
 
         arr2.forEach(function (item) {
