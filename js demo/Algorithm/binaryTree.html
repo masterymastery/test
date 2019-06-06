@@ -155,7 +155,7 @@
                 isUnival(root.right, arr);
             }
         }
-        console.log(isUnivalTree(ttt));
+        //console.log(isUnivalTree(ttt));
         function mergeTrees(t1, t2) {
             if (!t1 && t2) {
                 t1 = t2;
@@ -176,8 +176,64 @@
             }
             return t1;
         };
-        console.log(mergeTrees(t5, t6));
+        //console.log(mergeTrees(t5, t6));
         //console.log(tree);
+
+        var tree = {
+            val: 2,
+            left: {
+                val: 2,
+                left: {
+                    val: 5
+                },
+                right: {
+                    val: 2
+                }
+            },
+            right: {
+                val: 2
+            }
+        };
+        function aisUnivalTree(root) {
+            /* if (root) {
+                aisUnivalTree(root.left);
+                aisUnivalTree(root.right);
+            } else {
+                return;
+            } */
+            return search(root, root.left) &&
+                search(root, root.right);
+        };
+
+        function search(root, child) {
+            var rootVal = root.val;
+            var childVal;
+            //child不知道有没有所以直接写val会报错
+            if (child) {
+                childVal = child.val;
+                if (rootVal === childVal) {
+                    return search(root, child.left) &&
+                        search(root, child.right);
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        }
+        // console.log(aisUnivalTree(tree));
+
+        var bisUnivalTree = function (root) {
+            return presearch(root, root.val);
+        };
+        function presearch(root, val) {
+            if (root == null) return true;
+            if (root.val != val) {
+                return false;
+            }
+            return presearch(root.left, val) && presearch(root.right, val);
+        }
+        console.log(aisUnivalTree(tree));
     </script>
 </body>
 

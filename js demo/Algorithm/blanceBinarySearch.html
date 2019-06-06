@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>quickSort</title>
+    <title>blanceBinarySearch</title>
 </head>
 <!--
 -->
@@ -287,40 +287,58 @@
             }
             return true;
         }
-        var arr = [1, 2, 3, 4, 5,/*  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 */];
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8 /* , 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 */];
+        /* 1      前序：1 0 2 3
+          0 2     中序：0 1 2 3
+             3    后序：0 3 2 1
+         */
+
+        /*  3      前序：3 1 0 2 5 4 7 6 8
+          1   5    中序：0 1 2 3 4 5 6 7 8
+        0  2 4  7  后序：0 2 1 4 6 8 7 5 3
+               6 8*/
         var b = new BtreeNode(0);
         arr.forEach(function (item) {
             b.insertAVL(new BtreeNode(item)).btree;
         })
-        // console.info(b);
-        console.log(isSymmetric(b));
-        function isSymmetric(root) {
-            //镜像条件：1.两颗树的根节点相同
-            //2.左树left等于右树Right，右树left等于左树right
-            if (!root) {
-                return false;
-            }
-            if (!root.lchild || !root.rchild) {
-                return false;
-            }
-
-            var leftTree = root.lchild;
-            var rightTree = root.rchild;
-            var val = (leftTree.data === rightTree.data);
-            var left = false, right = false;
-            if (leftTree.lchild != null && leftTree.rchild != null &&
-            rightTree.lchild != null && rightTree.rchild != null) {
-                left = (leftTree.lchild.data === rightTree.rchild.data);
-                right = (leftTree.rchild.data === rightTree.lchild.data);
-            }
-
-            if (val && left && right) {
-                return true;
-            } else {
-                isSymmetric(root.lchild);
-                isSymmetric(root.rchild);
+        console.log(b);
+        console.log(inorderTraversal(b));
+        function preOrder(tree) {
+            if (tree) {
+                console.log(tree.data);
+                preOrder(tree.lchild);
+                preOrder(tree.rchild);
             }
         }
+        function inOrder(tree) {
+            if (tree) {
+                inOrder(tree.lchild);
+                console.log(tree.data);
+                inOrder(tree.rchild);
+            }
+        }
+        function backOrder(tree) {
+            if (tree) {
+                backOrder(tree.lchild);
+                backOrder(tree.rchild);
+                console.log(tree.data);
+            }
+        }
+        function inorderTraversal(root) {
+            var result = [];
+            var stack = [];
+            while (stack.length || root) {
+                if (root) {
+                    stack.push(root);
+                    root = root.lchild
+                } else {
+                    root = stack.pop();
+                    result.push(root.data);
+                    root = root.rchild;
+                }
+            }
+            return result;
+        };
     </script>
 </body>
 
