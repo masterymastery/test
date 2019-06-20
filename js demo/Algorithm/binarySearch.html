@@ -11,27 +11,57 @@
 
 <body style="margin:0px;">
     <script>
-        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 44, 86];
-        var result = binary_search(arr, 86);
-        console.log(result);   // 9
+        var arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 44, 86];
+        var arr = [-1, 0, 3, 5, 9, 12];
+        var arr2 = [5];
+        var arr3 = [1,2,3,4,5];
 
-        function binary_search(arr, target) {
-            var minIndex = 0,
-                maxIndex = arr.length - 1;
+        var search = function (nums, target) {
+            return _search(nums, target, 0, nums.length - 1);
+        };
 
-            while (minIndex <= maxIndex) {
-                var midIndex = parseInt((maxIndex + minIndex) / 2);
-                 console.log(midIndex+'----'+maxIndex+'----'+minIndex);
-                if (target == arr[midIndex]) {
-                    return midIndex;
-                } else if (target > arr[midIndex]) {
-                    minIndex = midIndex + 1;
-                } else {
-                    maxIndex = midIndex - 1;
+        function _search(nums, target, min, max) {
+            if (nums[min] == target) {
+                return min;
+            }
+            if (nums[max] == target) {
+                return max;
+            }
+            if (Math.abs(max - min) < 2) {
+                return -1;
+            }
+            var mid = Math.floor((max + min) / 2);
+            var midVal = nums[mid];
+            if (midVal < target) {
+                min = mid + 1;
+                return _search(nums, target, min, max);
+            } else if (midVal > target) {
+                max = mid - 1;
+                return _search(nums, target, min, max);
+            } else {
+                return mid;
+            }
+        }
+        
+        
+        var search = function (nums, target) {
+            var min = 0, max = nums.length-1 ;
+            while (max >= min) {
+                var mid = Math.floor((max + min) / 2);
+                var midVal = nums[mid];
+                if (midVal == target) {
+                    return mid;
+                } else if (midVal < target) {
+                    min = mid + 1;
+                } else if (midVal > target) {
+                    max = mid - 1;
                 }
             }
-            return -1
-        }
+            return -1;
+        };
+
+        var result = search(arr3, 5);
+        console.log(result);   // 9
     </script>
 </body>
 
