@@ -1,33 +1,91 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>访问器属性</title>
-</head>
-<!-- 观察者模式：发布订阅模式
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>访问器属性</title>
+    </head>
+    <!-- 观察者模式：发布订阅模式
     订阅者：用户，注册就是绑定模板，确定要的对象信息
     观察者：Object数据劫持机制，劫持所有对象信息并发给订阅者
     被观察者：所有VUE中的对象，所有的动态都会被内部机制监测到
 -->
 
-<body style="margin:0px;">
-    <script>
-        var test = {
-            book: 1
-        };
-        Object.defineProperty(test, 'book',  {
-            get : function () {
-                console.log('get')
-            },
-            set : function (newVal) {
-                console.log(`大家好,我系${newVal}`);
+    <body style="margin: 0px;">
+        <script>
+            // 创建一个类继承数组，并创建该类实例
+            var newArrayInstance = Object.create(Array.prototype)
+            // 等同于 function F() {}
+            // F.prototype = Array.prototype
+            // var newArrayInstance = new F()
+
+            function arrObserve() {
+                var arrList = ['push', 'shift', 'splice']
+                arrList.forEach((item) => {
+                    // 开始重写数组的方法
+                    newArrayInstance[item] = function () {
+                        // 切片操作
+                        console.log('数组监听')
+                        Array.prototype[item].call(this, ...arguments)
+                    }
+                })
             }
-        })
-    </script>
-    <div id="app"></div>
+            // 这个data就是Vue组件中的data，在data中声明的变量都被监听
+            var data = {
+                book: 1,
+                abs: 2,
+                age: {
+                    name: {
+                        good: true
+                    }
+                },
+                // 数组直接赋值的变化监测不到，但是可以监测数组的原生方法
+                array: [1, 2, 3]
+            }
+            function detective(target) {
+                if (typeof target === 'object' && target !== null) {
+                    // 循环data对象中的所有属性，进行监听
+                    for (var i in target) {
+                        observe(target, i, target[i])
+                    }
+                } else {
+                    return target
+                }
+            }
+            function observe(target, key, value) {
+                // 监听多层对象
+                if (typeof value === 'object' && value !== null) {
+                    if (Array.isArray(value)) {
+                        // 监听数组的基础方法push shift splice slice等
+                        // 重写这些方法，加入监听，并维持原功能
+                        value.__pro__ = newArrayInstance
+                        Object.setPrototypeOf(value, newArrayInstance)
+                    } else {
+                        detective(value)
+                    }
+                }
 
-</body>
-
+                Object.defineProperty(target, key, {
+                    // 获取对象值执行的方法
+                    get() {
+                        return value
+                    },
+                    // 设置对象值执行的方法
+                    set(newVal) {
+                        if (newVal !== value) {
+                            // 新值要重新进行监听，防止重新定义一个新对象，新开辟一个内存地址，就监听不到
+                            detective(newVal)
+                            console.log(`视图更新`)
+                            value = newVal
+                        } else {
+                            console.log(`视图不变${newVal}`)
+                        }
+                    }
+                })
+            }
+            detective(data)
+            arrObserve()
+        </script>
+        <div id="app"></div>
+    </body>
 </html>
