@@ -34,8 +34,8 @@
             promise2 = new Promise(function (resolve, reject) {
                 setTimeout(function () {
                     console.log(res + '第二个');
-                    resolve(res+'第二个');
-                    //reject(res + '第二个失败');
+                    //resolve(res+'第二个');
+                    reject(res + '第二个失败');
                 }, 1000);
             });
             return promise2;

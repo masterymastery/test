@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+
+<body style="margin:0px;">
+    <div id="app">
+        xxx
+    </div>
+</body>
+
+<script>
+    // vue的效果是，this.xxx = xxx，页面上就变了
+    // 第一步：监听注册的vue对象，当对象的值变化，让页面上同步变
+    var obj = { _message: '123' }
+    Object.defineProperty(obj, 'message', {
+        get: function () {
+            return this._message
+        },
+        set: function (newValue) {
+            this._message = newValue
+            document.getElementById('app').innerHTML = newValue
+        }
+    })
+
+    // 未设置任何拦截函数，heroProxy就是obj
+    let handler = {}
+    let heroProxy = new Proxy(obj, handler);
+    heroProxy._message = 123
+    this.obj.message = 12345
+    console.log(this.obj)
+</script>
+
+</html>
