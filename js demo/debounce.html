@@ -12,7 +12,7 @@
 -->
 
 <body style="margin:0px;">
-    
+
     <input id="inp" type="text"></input>
     <button id='btn'>aa</button>
     <script>
@@ -24,12 +24,12 @@
                 clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
                 //每一次触发事件都会清除当前timeout并重新创建一个,每次都会重新执行setTimeout
                 //保证输入字符后的 timeout 间隔内如果还有字符输入的话，就不会执行 fn 函数
-                timeout = setTimeout(() => { 
+                timeout = setTimeout(() => {
                     //this指向input，因为是input触发的这个事件
                     fn.apply(this, arguments);
                     //fn();//不绑定this，this即是window
-                  //  console.log('防抖成功');
-                }, 10000);
+                    //  console.log('防抖成功');
+                }, 1000);
             };
         }
 
@@ -39,10 +39,10 @@
 
         var inp = document.getElementById('inp');
         inp.addEventListener('input', debounce(sayHi)); // 防抖    
-       // inp.addEventListener('click', sayHi, true);
+        // inp.addEventListener('click', sayHi, true);
 
-     //  var a = document.getElementById('btn');
-     //   a.addEventListener('click', sayHi); // 防抖
+        var a = document.getElementById('btn');
+        a.addEventListener('click', debounce(sayHi)); // 防抖
     </script>
 </body>
 
