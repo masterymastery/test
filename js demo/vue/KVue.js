@@ -5,8 +5,8 @@ class KVue {
         // 模拟watcher创建
         new Watcher()
         this.$data.name
-        new Watcher()
-        this.$data.npc.name
+        // new Watcher()
+        // this.$data.npc.name
     }
     // 将数据都进行观察
     observer(data) {
@@ -37,7 +37,7 @@ class KVue {
     }
 }
 
-// 订阅器，管理watcher 
+// 订阅器，管理watcher
 class Dep {
     constructor() {
         // 存放依赖（watcher）
@@ -48,7 +48,7 @@ class Dep {
     }
     // 通知所有的watcher
     notify() {
-        this.deps.forEach(dep => dep.update())
+        this.deps.forEach((dep) => dep.update())
     }
 }
 
