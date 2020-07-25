@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <title>observerMode</title>
-    </head>
-    <!-- 观察者模式：发布订阅模式
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>observerMode</title>
+</head>
+<!-- 观察者模式：发布订阅模式
     观察者模式和发布订阅模式的区别在于，被观察者包含观察者。
     观察者模式是基于发布订阅模式的。
     实现关键：
@@ -13,51 +14,52 @@
     2.被观察者状态改变后，主动调用观察者的更新方法。
 -->
 
-    <body style="margin: 0px;">
-        <script>
-            // 被观察者
-            class Observed {
-                constructor(name, state) {
-                    this.name = name
-                    this.state = state
-                }
-                // 观察者数组
-                observerList = []
-                // 被观察者状态
-                state = '健康'
-                // 观察者注册
-                attach = function (observer) {
-                    this.observerList.push(observer)
-                }
-                setState(state) {
-                    this.state = state
-                    // 被观察者状态改变，就调用所有观察者的update方法
-                    this.observerList.forEach((ob) => {
-                        ob.update(state)
-                    })
-                }
+<body style="margin: 0px;">
+    <script>
+        // 被观察者
+        class Observed {
+            constructor(name, state) {
+                this.name = name
+                this.state = state
             }
-            // 观察者
-            class Observer {
-                constructor(name) {
-                    this.name = name
-                }
-                update = function (state) {
-                    console.log(this.name + '得知，宝宝状态改变了，变成了' + state)
-                }
+            // 观察者数组
+            observerList = []
+            // 被观察者状态
+            state = '健康'
+            // 观察者注册
+            attach = function (observer) {
+                this.observerList.push(observer)
             }
-            // 初始化观察者
-            var observer1 = new Observer('父亲')
-            var observer2 = new Observer('母亲')
-            // 初始化被观察者
-            var observed = new Observed('孩子', '健康')
-            // 将观察者注册进被观察者中
-            observed.attach(observer1)
-            observed.attach(observer2)
-            // 当小宝的状态发生了改变，观察者做出响应
-            observed.setState('不健康')
-            observed.setState('健康')
-        </script>
-        <div id="app"></div>
-    </body>
+            setState(state) {
+                this.state = state
+                // 被观察者状态改变，就调用所有观察者的update方法
+                this.observerList.forEach((ob) => {
+                    ob.update(state)
+                })
+            }
+        }
+        // 观察者
+        class Observer {
+            constructor(name) {
+                this.name = name
+            }
+            update = function (state) {
+                console.log(this.name + '得知，宝宝状态改变了，变成了' + state)
+            }
+        }
+        // 初始化观察者
+        var observer1 = new Observer('父亲')
+        var observer2 = new Observer('母亲')
+        // 初始化被观察者
+        var observed = new Observed('孩子', '健康')
+        // 将观察者注册进被观察者中
+        observed.attach(observer1)
+        observed.attach(observer2)
+        // 当小宝的状态发生了改变，观察者做出响应
+        observed.setState('不健康')
+        observed.setState('健康')
+    </script>
+    <div id="app"></div>
+</body>
+
 </html>
