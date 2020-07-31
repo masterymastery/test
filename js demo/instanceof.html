@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>deepCopy</title>
-</head>
-<!--instanceof原理：判断对象在不在类的原型链上，可能是多层查找 
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>instanceof</title>
+    </head>
+    <!--instanceof原理：判断对象在不在类的原型链上，可能是多层查找 
 
  -->
 
-<body style="margin:0px;">
-    <script>
-        function _instanceof(p, Person) {
-            var son = p.__proto__;//获取子的指向父类原型对象的指针
-            var father = Person.prototype;
-            while (true) {
-                if (son === null || son === undefined)
-                    return false
-                if (son === father) {
-                    return true
-                } else {
-                    son = son.__proto__;
+    <body style="margin: 0px;">
+        <script>
+            function _instanceof(p, Person) {
+                var son = p.__proto__ //获取子的指向父类原型对象的指针
+                var father = Person.prototype
+                while (true) {
+                    if (son === null || son === undefined) return false
+                    if (son === father) {
+                        return true
+                    } else {
+                        son = son.__proto__
+                    }
                 }
+                // return son === father;//一层
             }
-            // return son === father;//一层
-        }
-        function Person() { this.name = 1 }
-        var p = new Person();
-        console.log(_instanceof(p, Object));
-    </script>
-
-</body>
-
+            function Person() {
+                this.name = 1
+            }
+            var p = new Person()
+            console.log(_instanceof(p, Object))
+        </script>
+    </body>
 </html>
