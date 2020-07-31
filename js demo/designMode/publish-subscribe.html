@@ -1,69 +1,51 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <title>observerMode</title>
-    </head>
-    <!-- 观察者模式：发布订阅模式
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>observerMode</title>
+</head>
+<!-- 观察者模式：发布订阅模式
     概念：
     订阅者：各地的基站，功能是通过卫星订阅飞机的信息
     观察者：卫星，功能是给订阅者发布消息，接收订阅者订阅信息，删除订阅信息
     被观察者：飞机，功能是给观察者发消息
 -->
 
-    <body style="margin: 0px;">
-        <script>
-            // 发布者
-            class Publish {
-                constructor(name) {
-                    this.name = name
-                }
-                subs = []
-                // 订阅的主题，订阅者实例，回调函数
-                subject(subject, vm, cb) {
-                    this.subs.push({
-                        subject: subject,
-                        vm: vm,
-                        cb: cb
-                    })
+<body style="margin: 0px;">
+    <script>
+        // 发布者
+        class Publish {
+            events = {
+                'type': []
+            }
+            add(type, fn) {
+                if (typeof this.events[type] === 'undefined') {
+                    this.events[type] = [fn]
+                } else {
+                    this.events[type].push(fn)
                 }
             }
-            // 发布器
-            class Dep {
-                constructor() {
-                    this.deps = []
-                }
-                addDep(vm) {
-                    this.deps.push(vm)
-                }
-                notify() {
-                    this.deps.forEach((dep) => {
-                        dep.update()
-                    })
-                }
+            delete(type, fn) {
+                this.events[type] = this.events[type].filter(item => item === fn)
             }
-            // 订阅者
-            class Sub {
-                // new一个订阅者，就往订阅池里扔一个订阅者
-                constructor(name, cb) {
-                    Dep.target = this
-                }
-                cb(value) {
-                    console.log('订阅消息推送收到', value)
-                }
+            fire(type, args) {
+                this.events[type].forEach((event) => {
+                    event.call(this, args)
+                })
             }
-            var sub = new Sub('66', (value) => {
-                console.log('66订阅消息推送收到', value)
-            })
-            var sub2 = new Sub('77', (value) => {
-                console.log('77订阅消息推送收到', value)
-            })
-            var publish = new Publish('发布者')
-            // 增加订阅者
-            publish.subject('click', sub, sub.cb)
-            publish.subject('click', sub2, sub2.cb)
-        </script>
-        <div id="app"></div>
-    </body>
+        }
+        var p = new Publish()
+        p.add('click', function (args) {
+            console.log(args)
+        })
+        // p.delete('click', function (args) {
+        //     console.log(args)
+        // })
+        p.fire('click', { msg: '参数' })
+    </script>
+    <div id="app"></div>
+</body>
+
 </html>
