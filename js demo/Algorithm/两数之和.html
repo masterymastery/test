@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>两数之和</title>
+</head>
+<!--
+    map.get可以通过key来找到value，把数组的值作为map的key，就可以使用get方法了
+    如果遇到相同的key，会把新的value赋给这个key
+    如果有相同的值，这个key会找到后面的那个值，因为newMap的时候把后面的key存入了value中
+-->
+
+<body style="margin:0px;">
+    <script>
+        var twoSum = function (nums, target) {
+            let map = new Map()
+            nums.forEach((value, index) => {
+                // map.get可以通过key来找到value，把数组的值作为map的key，就可以使用get方法了
+                // 如果遇到相同的key，会把新的value赋给这个key
+                map.set(value, index)
+            })
+            let targetKey = 0
+            let index = 0
+            // forEach不能使用return或者break退出循环，换成for循环
+            for (var i = 0; i < nums.length; i++) {
+                let targetValue = target - nums[i]
+                targetKey = map.get(targetValue)
+                // 如果有相同的值，这个key会找到后面的那个值，因为newMap的时候把后面的key存入了value中
+                if (targetKey > i) {
+                    index = i
+                    break;
+                }
+            }
+            return [targetKey, index]
+        };
+
+        console.log(twoSum([2, 5, 5, 11],
+            10))
+    </script>
+</body>
+
+</html>

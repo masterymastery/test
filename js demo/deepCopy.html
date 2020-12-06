@@ -30,30 +30,60 @@
                 a: 1,
                 b: 2
             },
-          /*   fn: function () {
-            },
-            friends: [1, 2, 3, [22, 33]] */
-        }
-        function copy(obj) {
-            let newObj = null;   //准备开辟新的内存空间
-            //判断数据类型是否是复杂类型，如果是则调用自己，再次循环，如果不是，直接赋值
-            //由于null不可以循环但类型又是object，所以这个需要对null进行判断
-            if (typeof (obj) == 'object' && obj !== null) {
-                newObj = obj instanceof Array ? [] : {}; //每次都开辟新的内存空间
-                //新的内存空间的指针和外层指针有联系，就是多层对象
-                //循环obj 中的每一项，如果里面还有复杂数据类型，则直接利用递归再次调用copy函数
-                for (var i in obj) {
-                    newObj[i] = copy(obj[i])
+            a: {
+                b: {
+                    c: 6
                 }
-            } else {
-                newObj = obj
+            },
+            arr:[1,2,3]
+            /*   fn: function () {
+              },
+              friends: [1, 2, 3, [22, 33]] */
+        }
+        // var obj = [1,2,3,4,5]
+        // var obj = '123'
+        // function deepCopy(obj) {
+        //     let newObj = null;   //准备开辟新的内存空间
+        //     //判断数据类型是否是复杂类型，如果是则调用自己，再次循环，如果不是，直接赋值
+        //     //由于null不可以循环但类型又是object，所以这个需要对null进行判断
+        //     if (typeof (obj) == 'object' && obj !== null) {
+        //         newObj = obj instanceof Array ? [] : {}; //每次都开辟新的内存空间
+        //         //新的内存空间的指针和外层指针有联系，就是多层对象
+        //         //循环obj 中的每一项，如果里面还有复杂数据类型，则直接利用递归再次调用copy函数
+        //         for (var i in obj) {
+        //             newObj[i] = copy(obj[i])
+        //         }
+        //     } else {
+        //         newObj = obj
+        //     }
+        //     return newObj;    //函数必须有返回值，否则结构为undefined
+        // }
+
+        // 传入一个数组或者对象，返回一个深复制的数组或对象,下面是简写，只判断对象
+        function deepCopy(args) {
+            if (typeof (args) === 'object' && !Array.isArray(args)) {
+                let newArgs = {}
+                // 看看是不是还有子对象
+                if (Object.keys(args).length > 0) {
+                    // deepCopy(args[key])
+                    for (let key in args) {
+                        newArgs[key] = deepCopy(args[key])
+                    }
+                } else {
+                    newArgs = args
+                }
+                return newArgs
+            } else if (typeof (args) === 'object' && Array.isArray(args)) {
+                let newArr = []
+                return newArr.concat(args)
             }
-            return newObj;    //函数必须有返回值，否则结构为undefined
+            else {
+                return JSON.parse(JSON.stringify(args))
+            }
         }
 
-        var obj2 = copy(obj)
-        obj2.name = '修改成功'
-        obj2.main.a = 100
+        var obj2 = deepCopy(obj)
+        // obj2.main.a = 100
         console.log(obj, obj2)
 
     </script>

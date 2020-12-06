@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>原型链</title>
+    <meta />
+</head>
+
+<body>
+    <script>
+        var isValid = function (s) {
+            if (s === '') {
+                return true
+            }
+            if (s.length === 1) {
+                return false
+            }
+            let stack = []
+            let dic = new Map([['(', ')'], ['[', ']'], ['{', '}']])
+            for (var i = 0; i < s.length; i++) {
+                var str = s[i]
+                // 如果遇到了左括号，就push进栈中
+                if (dic.has(str)) {
+                    stack.push(str)
+                } else { // 右括号就弹出栈最后放入的key，看看是不是一对
+                    // 如果pop的那个值对上就弹出，对不上
+                    let popKey = stack.pop()
+                    if (popKey === dic.get(popKey)) {
+                        return true
+                    }
+                }
+            }
+            return stack.length === 0
+        };
+        console.log(isValid("(]"))
+    </script>
+</body>
+
+</html>

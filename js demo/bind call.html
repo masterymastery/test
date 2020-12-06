@@ -5,7 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
-
+<!-- 
+  bind call apply共同的作用是改变function里面的this
+  区别是call和apply改变以后会执行方法，bind不会执行
+  call和apply的区别是call的第二个参数是依次传入xxx.call(context,xx,xx,xx)
+  apply的第二个参数是个数组xxx.apply(context,[xx,xx,xx])
+ -->
 <body style="margin:0px;">
 
   <button id="test">Click</button>

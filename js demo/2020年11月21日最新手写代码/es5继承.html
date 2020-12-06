@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>es6继承</title>
+    <meta />
+</head>
+
+<body>
+    最好的继承方式是寄生组合继承
+    组合继承是经典继承+原型继承
+    原型继承的原理是让子类的原型对象等于父类的实例，问题是会让子类的多个实例共享父类的原型对象。
+    解决办法是使用经典继承，在子类构造函数中call一下父类的构造函数，会解决多实例共享父类原型对象的问题。
+    组合继承的问题是，会执行两遍父类的构造函数，会让子类原型对象中存在相同的父类构造函数中的属性和方法。
+    使用寄生组合继承 = 经典继承拿到独立的this和构造函数中的属性方法，并且创造一个父类原型对象的副本。
+    <script>
+        function SuperType() {
+            this.name = 'super'
+            this.age = '50'
+        }
+        SuperType.prototype.arr = [1, 2, 3]
+        function SubType() {
+            SuperType.call(this)
+            this.subName = 'sub'
+            this.subAge = '30'
+        }
+        SubType.prototype = Object.create(SuperType.prototype)
+        let sub = new SubType()
+        console.log(sub.name, sub.age)
+        console.log(sub.subName, sub.subAge)
+        console.log(sub.arr)
+        sub.arr.push(4)
+        // 引用类型的值是浅拷贝
+        console.log(sub.arr)
+        console.log(SuperType.prototype.arr)
+    </script>
+</body>
+
+</html>

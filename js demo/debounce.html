@@ -7,42 +7,52 @@
     <title>promise</title>
 </head>
 <!-- 防抖：高频事件发生时，在事件回调完成之前再次触发，以最后一次触发事件为准
-     只要触发事件，就会执行
+     实现原理：方法执行后会创建一个清除timer，并创建一个timer，1秒后执行，如果1秒内再次触发，清除timer，创建timer，实现了每次点击都延迟1秒执行，1秒内多次点击，还是1秒后执行。
+     如果要实现点击立即执行方法，定义一个延迟执行的空方法
+     注意：1.setTimeOut执行格式是return一个function，第二个参数是时间间隔
+     2.清除timer使用clearTimeout，time=null没用
+     3.执行方法不能直接执行fn()，否则内部this会指向window，触发方法的是btn，虽然绑定的是debounce，但是实际触发的是内部return的函数，所以内部function的this指向btn。
+     4.传参的话要在debounce后面加上bind
+     5.让函数立刻执行，需要增加一个变量来控制，增加一个延时函数，在指定时间内，不会改变这个变量的值。
      节流是回调执行之前触发，事件不会执行
 -->
 
 <body style="margin:0px;">
 
-    <input id="inp" type="text"></input>
+    <!-- <input id="inp" type="text"></input> -->
     <button id='btn'>aa</button>
     <script>
-        function debounce(fn) {
-            //首次进来this是window，因为不是input调用的，属于window调用
-            let timeout = null; // 创建一个标记用来存放定时器的返回值,只在绑定的时候执行一次
+        function debounce(fn, time, immediate) {
+            var timer = null
+            var rightNow = true
             return function () {
-                //timeout = null;
-                clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
-                //每一次触发事件都会清除当前timeout并重新创建一个,每次都会重新执行setTimeout
-                //保证输入字符后的 timeout 间隔内如果还有字符输入的话，就不会执行 fn 函数
-                timeout = setTimeout(() => {
-                    //this指向input，因为是input触发的这个事件
-                    fn.apply(this, arguments);
-                    //fn();//不绑定this，this即是window
-                    //  console.log('防抖成功');
-                }, 1000);
-            };
+                clearTimeout(timer)
+                if (immediate) {
+                    if (rightNow) {
+                        fn.apply(this, arguments);
+                        rightNow = false
+                    }
+                    timer = setTimeout(() => {
+                        rightNow = true
+                    }, time)
+                }
+                else {
+                    timer = setTimeout(() => {
+                        fn.apply(this, arguments)
+                    }, time)
+                }
+
+            }
         }
 
-        function sayHi() {
-            console.log(this + '防抖成功');
+        function sayHi(arg1, arg2) {
+            // 这是方法实现
+            console.log(`this指向：${this} ，事件触发，参数1：${arg1},参数2：${arg2}`);
         }
 
-        var inp = document.getElementById('inp');
-        inp.addEventListener('input', debounce(sayHi)); // 防抖    
-        // inp.addEventListener('click', sayHi, true);
+        let btn = document.getElementById('btn')
+        btn.addEventListener('click', debounce(sayHi, 1000, false).bind(btn, 1, 2))
 
-        var a = document.getElementById('btn');
-        a.addEventListener('click', debounce(sayHi)); // 防抖
     </script>
 </body>
 

@@ -1,0 +1,61 @@
+<html>
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .layout {
+        display: flex;
+    }
+
+    .main {
+        flex: 1;
+    }
+
+    .aside {
+        width: 200px;
+    }
+</style>
+
+<body>
+    <!-- flex实现两列 三列布局
+    1.两列：左侧固定宽，右侧自适应
+    2.两列：右侧固定宽，左侧自适应
+    3.三列：左侧右侧固定宽，中间自适应
+    4.三列：左边两个侧边栏固定宽，右边自适应
+    5.三列：右边两个侧边栏固定宽，左边自适应
+    -->
+    <div class="containner">
+        <div class="layout">
+            <aside class="aside">侧边栏宽度固定</aside>
+            <div class="main">主内容栏宽度自适应</div>
+        </div>
+        <div class="layout">
+            <div class="main">主内容栏宽度自适应</div>
+            <aside class="aside">侧边栏宽度固定</aside>
+        </div>
+        <div class="layout">
+            <aside class="aside">左侧边栏宽度固定</aside>
+            <div class="main">主内容栏宽度自适应</div>
+            <aside class="aside">右侧边栏宽度固定</aside>
+        </div>
+        <div class="layout">
+            <aside class="aside">第1个侧边栏宽度固定</aside>
+            <aside class="aside">第2个侧边栏宽度固定</aside>
+            <div class="main">主内容栏宽度自适应</div>
+        </div>
+        <div class="layout">
+            <div class="main">主内容栏宽度自适应</div>
+            <aside class="aside">第1个侧边栏宽度固定</aside>
+            <aside class="aside">第2个侧边栏宽度固定</aside>
+        </div>
+    </div>
+</body>
+
+</html>

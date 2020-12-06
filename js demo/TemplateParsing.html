@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+    </meta>
+    <title>template</title>
+</header>
+<!-- 
+    解析出HTML的标签，不可重复，先不考虑单闭合标签如input br
+    如<div><span></span><span></span></div>
+    思路是找到</和>之间的元素，并放入数组中，最后去重
+ -->
+
+<body>
+
+
+</body>
+
+
+<script>
+    let s = '<div><span></span><span></span></div>'
+
+    /* 怎么取出</span>之间的那个span 
+    1.正则匹配
+    2.字符串遍历，扫描第一个<然后第一个>,拿到中间的str，push进一个数组，不行，因为找不到一对。
+    */
+    function parsing(str) {
+        var pattern = /<\/[^>]+>/g;
+        var pattern = /<\/[^>]+>/g
+        console.log(str.match(pattern));
+    }
+    parsing(s)
+</script>
+
+</html>

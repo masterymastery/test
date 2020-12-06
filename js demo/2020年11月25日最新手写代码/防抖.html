@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>防抖</title>
+    <meta />
+</head>
+
+<body>
+    <pre>防抖：当用户高频触发一个事件的时候，以最后一次触发事件为准，中间的都不触发方法。
+        默认会是触发事件后，事件setTimeOut后执行，也可以让事件马上执行，同时具有防抖的功能。
+        实现关键点有6
+        1.绑定的方法传两个参数（callback和time）
+        2.防抖方法要返回一个function。
+        3.闭包保存一个只在绑定的时候初始化的值，后面再触发就不会执行的值。
+        4.每次点击都清除setTimeOut，然后马上再创建setTimeOut，在time时间内一直点会一直清除，创建，但是方法不执行，因为time内给clear掉了
+        5.callback方法执行的时候this要修正指向，如果直接调用就会指向window，因为触发的是btn，所以要call(this),箭头函数指向外层触发者。
+        6.如果要触发事件立刻执行，还需要创建一个变量来控制是否是第一次触发。在立刻执行后，还要创建个setTimeOut把这个变量改成true。
+    </pre>
+    <button id='dian'>点</button>
+    <script>
+        function debounce(fn, time) {
+            // 闭包保存一个只在第一次绑定方法时运行的变量，后面再点击就不会执行他。
+            let timer = null
+            let first = true
+            return function () {
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                if (first) {
+                    fn.call(this)
+                    first = false
+                    timer = setTimeout(() => {
+                        first = true
+                    }, time)
+                } else {
+                    timer = setTimeout(() => {
+                        fn.call(this)
+                        first = true
+                    }, time)
+                }
+            }
+        }
+        function clickMethod() {
+            console.log(this)
+        }
+        let button = document.getElementById('dian')
+        button.addEventListener('click', debounce(clickMethod, 1000))
+
+    </script>
+</body>
+
+</html>

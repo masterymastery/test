@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>原型链</title>
+        <meta/>
+    </head>
+    <body>
+        每个函数都有一个原型对象，原型对象上保存着可以被继承的属性和方法。<br>
+        当调用一个实例的属性时，首先在实例上搜索这个属性，如果没找到会寻找父类的原型对象，再没有会找父类的父类的原型对象，最后指向Object的原型对象，再没有就指向null。<br>
+        这个过程通过函数的隐形属性_proto_来实现的。这个查找的过程形成一个原型的链条，叫原型链。
+        _proto_指向父类的构造函数。
+        <script>
+            function Fun(){
+                this.a = 123
+            }
+            let fun = new Fun()
+            // 当查找fun的某个属性时，会寻找fun._proto_
+            console.log(fun.__proto__ === Fun.prototype)
+            console.log(Fun.prototype.__proto__ === Object.prototype)
+            console.log(Object.prototype.__proto__ === null)
+            console.log(Fun.__proto__ === Function.prototype)
+        </script>
+    </body>
+</html>

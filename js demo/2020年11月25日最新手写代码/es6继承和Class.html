@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>es6继承和Class</title>
+    <meta />
+</head>
+
+<body>
+    es6继承是使用class extends实现的一个语法糖，本质是还是基于原型和构造函数的。
+    静态方法不能用实例调用,通常用于创建工具函数。
+    this必须在super()之后使用。
+    使用super调用父类上的属性和方法。
+    es6的继承，父类的原型对象也是浅复制。
+    <script>
+        class SuperType {
+            constructor() {
+                this.name = 'super'
+                this.age = 50
+            }
+            // getter
+            get getName(){
+                return this.name
+            }
+            // method
+            getAge(){
+                return this.age
+            }
+            // static method
+            static getQQ(){
+                return 'qq'
+            }
+        }
+        SuperType.prototype.arr = [1,2,3]
+        class SubType extends SuperType {
+            constructor() {
+                super()
+            }
+            getSpeak(){
+                return super.getName
+            }
+            getAge(){
+                return super.getAge()
+            }
+        }
+        let supe = new SuperType()
+        console.log(supe.name)
+        console.log(supe.getName)
+        console.log(supe.getAge())
+        console.log(SuperType.getQQ())
+        console.log('----------------')
+        let sub = new SubType()
+        console.log(sub.name)
+        console.log(sub.getName)
+        console.log(sub.getAge())
+        console.log(SubType.getQQ())
+        console.log(sub.getSpeak())
+        console.log(sub.getAge())
+        console.log('----------------')
+        console.log(sub.arr)
+        sub.arr.push(4)
+        console.log(sub.arr)
+        console.log(supe.arr)
+    </script>
+</body>
+
+</html>

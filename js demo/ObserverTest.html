@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>test</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        /* 
+            1.写一个对象的检测，明确object.defineProperty的语法
+            2.写多个一维对象的检测，确定for循环和传参
+            3.写多个多维对象的检测，使用递归        
+        */
+        let object = { a: { b: 1 }, c: 2 }
+        // let object = { a: 1, c: 2 }
+        // let key = 'a'
+        // let Avalue = 1
+        // let o = {}
+        // o[key] = Avalue
+
+        function Observer(object) {
+            if (typeof object !== 'object') {
+                return
+            }
+            Object.keys(object).forEach((key) => {
+                deactivated(object, key, object[key])
+            })
+        }
+
+
+        function deactivated(obj, proto, value) {
+            Observer(value)
+            Object.defineProperty(obj, proto, {
+                get() {
+                    console.log(`${obj}对象的属性${proto},值为${value}`)
+                    return value
+                },
+                set(newValue) {
+                    if (newValue !== value) {
+                        console.log(`${obj}对象的属性${proto},值改为${newValue}`)
+                        value = newValue
+                    }
+                }
+            })
+        }
+
+        Observer(object)
+
+        //递归对象的写法
+        // function observer(data) {
+        //     if (!data || typeof data !== 'object') {
+        //         return
+        //     }
+        //     //deactivated(data)
+        //     Object.keys(data).forEach((key) => {
+        //         this.deactivated(data, key, data[key])
+        //     })
+        // }
+
+        // function deactivated(obj, key, val) {
+        //     observer(val)
+        //     Object.defineProperty(obj, key, {
+        //         get() {
+        //             console.log(`$data的值为${val}`)
+        //             return val
+        //         },
+        //         set(newValue) {
+        //             if (val === newValue) {
+        //                 return
+        //             }
+        //             val = newValue
+        //             console.log(`$data的${key}发生改变，值为${val}`)
+        //         }
+        //     })
+        // }
+        // observer(object)
+        // 一个对象的写法
+        // Object.defineProperty(o, key, {
+        //     get() {
+        //         console.log(`o的值为${Avalue}`)
+        //         return Avalue
+        //     },
+        //     set(newValue) {
+        //         if (Avalue === newValue) {
+        //             return
+        //         }
+        //         Avalue = newValue
+        //         console.log(`o的a值发生改变，值为${Avalue}`)
+        //     }
+        // })
+    </script>
+</body>
+
+</html>

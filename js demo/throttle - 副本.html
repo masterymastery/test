@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>promise</title>
+</head>
+<!--节流 事件执行中，回调回来之前触发事件不会执行
+    固定频率
+-->
+
+<body style="margin:0px;">
+    <button id='btn'>66</button>
+    <script>
+        function throttle(fn, time) {
+            let exec = true
+            let timer = null
+            return function () {
+                if (!exec) {
+                    return
+                }
+                exec = false
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments)
+                    exec = true
+                }, time)
+            }
+        }
+        function sayHi(arg1, arg2) {
+            console.log(`this指向：${this} ，事件触发，参数1：${arg1},参数2：${arg2}`);
+        }
+        let btn = document.getElementById('btn')
+        btn.addEventListener('click', throttle(sayHi, 1000));
+    </script>
+</body>
+
+</html>

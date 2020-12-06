@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>节流</title>
+    <meta />
+</head>
+
+<body>
+    <pre>节流：当用户触发高频事件后，不管触发频率有多快，只要在time里就按照固定的time触发事件。
+        默认也是第一次触发就setTimeOut，不会立刻触发事件。
+        和防抖相比注意点有2
+        1.不用保存执行器对象了，也不用clearTimeOut，因为每次点击都会执行，time内不会执行。
+        2.和防抖完全不一样的机制，没有定时器
+    </pre>
+    <button id='dian'>点</button>
+    <script>
+        function throttle(fn, time) {
+            let canRun = true
+            return function () {
+                if (!canRun) {
+                    return
+                }
+                canRun = false
+                setTimeout(() => {
+                    fn.call(this)
+                    canRun = true
+                }, time)
+            }
+        }
+        function clickMethod() {
+            console.log(this)
+        }
+        let button = document.getElementById('dian')
+        button.addEventListener('click', throttle(clickMethod, 1000))
+
+    </script>
+</body>
+
+</html>

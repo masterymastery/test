@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>整数反转</title>
+</head>
+<!--
+    方法一：
+    1.将整数转成字符串，反向循环，并累加，再转成整数
+    2.有负数的话，反向循环最后一位不要，因为最后一位不能放符号
+    3.最后输出的时候，负数的话要给转成字符串，前面加个符号，再转成字符输出
+    4.正数和负数转后不加符号的时候，要判断是否大于2的31次方-1
+    方法二：
+    res % 10 等到尾数
+    res / 10 去掉尾数
+    将尾数累加，就得到了答案
+    求模的时候可以把12300这种解决
+    
+-->
+
+<body style="margin:0px;">
+    <script>
+        var reverse = function (value) {
+            let str = value.toString()
+            let fushu = value < 0 ? true : false
+            let result = ''
+            for (var i = str.length - 1; i >= 0; i--) {
+                if (fushu && i === 0) {
+                    break
+                } else {
+                    result += str[i]
+                }
+
+            }
+            if (fushu) {
+                result = Number(result)
+                if (result > (Math.pow(2, 31) - 1)) {
+                    return 0
+                } else {
+                    result = result.toString()
+                    result = '-' + result
+                    return Number(result)
+                }
+            } else {
+                if (result > (Math.pow(2, 31) - 1)) {
+                    return 0
+                } else {
+                    return Number(result)
+                }
+            }
+        };
+
+        console.log(reverse(-123))
+    </script>
+</body>
+
+</html>

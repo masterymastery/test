@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>原型链</title>
+    <meta />
+</head>
+
+<body>
+    <ul id='ull' class=”content”>
+        <li class=”item1”>1</item>
+        <li class=”item2”>2</item>
+        <li class=”item3”>3</item>
+        <li class=”item4”>4</item>
+        <li class=”item5”>5</item>
+    </ul>
+    <script>
+        // var str = '123abc456def'
+        // function checkStr(str) {
+        //     let newStr = str.replace(/[^0-9]/ig, "")
+        //     return newStr
+        // }
+        // function checkStr2(str) {
+        //     let newStr = ''
+        //     for (var i = 0; i < str.length; i++) {
+        //         if (Number(str[i])) {
+        //             let newNum = Number(str[i]) * 2
+        //             newStr += JSON.stringify(newNum)
+        //         } else {
+        //             let temp = '[' + str[i] + ']'
+        //             newStr += temp
+        //         }
+
+        //     }
+        //     return newStr
+        // }
+
+        // console.log(checkStr2(str))
+        var str = '123abc456def'
+        function checkStr(str) {
+            let newStr = str.replace(/[^0-9]/ig, "")
+            return newStr
+        }
+        function checkStr2(str) {
+            let newStr = ''
+            for (var i = 0; i < str.length; i++) {
+                if (Number(str[i])) {
+                    let newNum = Number(str[i]) * 2
+                    newStr += JSON.stringify(newNum)
+                } else {
+                    let temp = '[' + str[i] + ']'
+                    newStr += temp
+                }
+
+            }
+            return newStr
+        }
+
+        function getCount() {
+            let temp = 0
+            return function () {
+                return ++temp
+            }
+        }
+        var fn = getCount();
+        // console.log(fn())
+
+        let arr = [1, 2, 0, 5, 0, 6, 8, 9, 0, 5, 2, 0, 4]
+        function moveZero(arr) {
+            let newArr = []
+            let count = 0
+            arr.forEach(num => {
+                if (num === 0) {
+                    count++
+                } else {
+                    newArr.push(num)
+                }
+            });
+            for (var i = 0; i < count; i++) {
+                newArr.push(0)
+            }
+            return newArr
+        }
+        // console.log(moveZero(arr))
+
+
+
+        // js部分
+        var element = document.getElementById('ull')
+        element.onclick = function (e) {
+            alert(e.target.innerHTML)
+        }
+
+
+    </script>
+</body>
+
+</html>

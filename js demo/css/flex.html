@@ -1,0 +1,181 @@
+<html>
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .big {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        background-color: rgb(14, 134, 170);
+        margin: 10px;
+    }
+
+    .small {
+        width: 20px;
+        height: 20px;
+        background-color: #000;
+        border-radius: 50%;
+    }
+
+    .c1 {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .c2 {
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .c3 {
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .c3 :nth-child(1) {
+        align-self: flex-start;
+    }
+
+    .c3 :nth-child(3) {
+        align-self: flex-end;
+    }
+
+    .c4 {
+        flex-flow: column;
+        justify-content: space-between;
+    }
+
+    .c4 .c4Inner {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .c5 {
+        flex-flow: column;
+        justify-content: space-between;
+    }
+
+    .c5 .c5Inner {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .c5 .c5InnerMid {
+        display: flex;
+        justify-content: center;
+    }
+
+    .c6 {
+        flex-flow: column;
+        justify-content: space-between;
+    }
+
+    .c6 .c6Up {
+        display: flex;
+        justify-content: center;
+    }
+
+    .c6 .c6Inner {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <!-- flex实现麻将牌 -->
+    <div class="containner">
+        <div class="big c1">
+            <div class="small"></div>
+        </div>
+        <div class="big c2">
+            <div class="small"></div>
+            <div class="small"></div>
+        </div>
+        <div class="big c3">
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+        </div>
+        <div class="big c4">
+            <div class="c4Inner">
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+            <div class="c4Inner">
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+        </div>
+        <div class="big c5">
+            <div class="c5Inner">
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+            <div class="c5InnerMid">
+                <div class="small"></div>
+            </div>
+            <div class="c5Inner">
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+        </div>
+        <div class="big c6">
+            <div class="c6Up">
+                <div class="small"></div>
+                <div class="small"></div>
+            </div>
+            <div class="c6Bottom">
+                <div class="c6Inner">
+                    <div class="small"></div>
+                    <div class="small"></div>
+                </div>
+                <div class="c6Inner">
+                    <div class="small"></div>
+                    <div class="small"></div>
+                </div>
+            </div>
+        </div>
+        <div class="big c7">
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+        </div>
+        <div class="big c8">
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+        </div>
+        <div class="big c9">
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+            <div class="small"></div>
+        </div>
+    </div>
+</body>
+
+</html>

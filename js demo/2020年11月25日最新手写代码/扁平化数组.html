@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>节流</title>
+    <meta />
+</head>
+
+<body>
+    <pre>
+        拉平数组就是循环数组，发现数组后递归调用方法，push进新数组
+    </pre>
+    <script>
+
+        let arr = [1, 2, 3, [4, 5, [{ a: 1 }, 7]]]
+        let newArr = []
+        function flatArr(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                if (Array.isArray(arr[i])) {
+                    flatArr(arr[i])
+                } else {
+                    newArr.push(arr[i])
+                }
+            }
+        }
+        flatArr(arr)
+        console.log(newArr)
+    </script>
+</body>
+
+</html>
