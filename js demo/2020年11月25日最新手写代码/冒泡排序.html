@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>冒泡排序</title>
+    <meta />
+</head>
+
+<body>
+    冒泡排序的核心：依次比较并交换相邻两个数，多次循环，从而达到排序的目的
+    第一轮循环：依次比较相邻的两个数，较大的数放右边，循环完毕就可以找到最大的数，在最右侧。
+    第二次循环：依次比较相邻的两个数，较大的数放右边，可以不比较最后一位，循环完毕就可以找到第二大的数，在右侧倒数第二个。
+    重复N-1次循环，就可以完成排序
+    时间复杂度是(n*(n - 1))/2 即n-1的阶和
+    比如数组长度为5，时间复杂度是 4 + 3 + 2 + 1 = 10
+    <script>
+        var arr = [2, 3, 4, 5, 8,2]
+        function sort(arr) {
+            let count = 0
+            for (var n = 0; n < arr.length - 1; n++) {
+                for (var i = 0; i < arr.length - 1 - n; i++) {
+                    count++
+                    if (arr[i] > arr[i + 1]) {
+                        var temp
+                        temp = arr[i + 1]
+                        arr[i + 1] = arr[i]
+                        arr[i] = temp
+                    }
+                }
+            }
+            console.log('执行次数=' + count)
+            return arr
+        }
+        console.log(sort(arr))
+    </script>
+</body>
+
+</html>

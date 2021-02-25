@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html style="width: 100%;height:100%;">
+
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="./echarts/dist/echarts.js"></script>
+</head>
+
+<body style="width: 100%;height:100%;">
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 100%;height:100%;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        var data = [{
+            name: '节点1'
+        }, {
+            name: '节点2'
+        }, {
+            name: '节点3'
+        }, {
+            name: '节点4'
+        }, {
+            name: '节点5'
+        }]
+        var edges = []
+        var link = [{
+            source: 0,
+            target: 1,
+            symbolSize: [5, 20],
+            label: {
+                show: true
+            }
+        }, {
+            source: '节点1',
+            target: '节点2'
+        }, {
+            source: '节点1',
+            target: '节点3'
+        }, {
+            source: '节点1',
+            target: '节点4'
+        }, {
+            source: '节点1',
+            target: '节点5'
+        }/* , {
+            source: '节点2',
+            target: '节点3'
+        } */]
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'Graph 简单示例',
+                subtext: 'Default layout',
+                top: 'bottom',
+                left: 'right'
+            },
+            tooltip: {},
+            // animationDurationUpdate: 1500,
+            // animationEasingUpdate: 'quinticInOut',
+            series: [
+                {
+                    type: 'graph',
+                    //  layout: 'none',
+                    draggable: true,
+                    layout: 'force',
+                    symbolSize: 60,
+                    roam: true,
+                    label: {
+                        show: true
+                    },
+                    data: data,
+                    links: link,
+                    // links: [],
+                    lineStyle: {
+                        opacity: 0.9,
+                        width: 2,
+                        curveness: 0
+                    },
+                    force: {
+                        gravity: 0.1,
+                        repulsion: 3000
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        // setInterval(function () {
+        //     data.push({
+        //         id: data.length
+        //     });
+        //     var source = Math.round((data.length - 1) * Math.random());
+        //     var target = Math.round((data.length - 1) * Math.random());
+        //     if (source !== target) {
+        //         edges.push({
+        //             source: source,
+        //             target: target
+        //         });
+        //     }
+        //     myChart.setOption({
+        //         series: [{
+        //             roam: true,
+        //             data: data,
+        //             edges: edges
+        //         }]
+        //     });
+
+        //     // console.log('nodes: ' + data.length);
+        //     // console.log('links: ' + data.length);
+        // }, 200);
+        myChart.on('click', function (params) {
+            console.log(params)
+            let dataSet = myChart._chartsMap["_ec_\u0000series\u00000\u00000_series.graph"]._symbolDraw._data._graphicEls
+            let target = dataSet.find((item) => {
+                return item.dataIndex === params.dataIndex
+            })
+
+            myChart.setOption({
+                series: [{
+                    center: [target.position[0], target.position[1]]
+                }]
+            })
+        })
+        function cclick(e) {
+            console.log(e)
+        }
+    </script>
+</body>
+
+</html>

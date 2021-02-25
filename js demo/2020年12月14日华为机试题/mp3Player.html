@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>mp3Player</title>
+    <meta />
+</head>
+
+<body>
+    <!-- MP3 Player因为屏幕较小，显示歌曲列表的时候每屏只能显示几首歌曲，用户要通过上下键才能浏览所有的歌曲。为了简化处理，假设每屏只能显示4首歌曲，光标初始的位置为第1首歌。
+
+
+    现在要实现通过上下键控制光标移动来浏览歌曲列表，控制逻辑如下：
+
+    歌曲总数<=4的时候，不需要翻页，只是挪动光标位置。 光标在第一首歌曲上时，按Up键光标挪到最后一首歌曲；光标在最后一首歌曲时，按Down键光标挪到第一首歌曲。
+        其他情况下用户按Up键，光标挪到上一首歌曲；用户按Down键，光标挪到下一首歌曲。
+         2. 歌曲总数大于4的时候（以一共有10首歌为例）： 特殊翻页：屏幕显示的是第一页（即显示第1 –4首）时，光标在第一首歌曲上，用户按Up键后，屏幕要显示最后一页（即显示第7-10首歌），同时光标放到最后一首歌上。
+         同样的，屏幕显示最后一页时，光标在最后一首歌曲上，用户按Down键，屏幕要显示第一页，光标挪到第一首歌上。
+        一般翻页：屏幕显示的不是第一页时，光标在当前屏幕显示的第一首歌曲时，用户按Up键后，屏幕从当前歌曲的上一首开始显示，光标也挪到上一首歌曲。光标当前屏幕的最后一首歌时的Down键处理也类似。
+        其他情况，不用翻页，只是挪动光标就行。 输入描述: 输入说明： 1 输入歌曲数量 2 输入命令 U或者D 本题含有多组输入数据！ 输出描述: 输出说明 1 输出当前列表 2 输出当前选中歌曲 -->
+    <script>
+        /* 
+            一屏4首歌，输入两个参数曲目数量（10）和操作（UUUUDDDD），输出两个参数当前页面的曲目（7,8,9,10）和当前选中曲目（7）
+            只有一页c=1按上到4，c=4按下到1
+            多页，c=1按上到最后一项，c=最后，按下到1
+
+            问题来了 修改为一页显示5个，怎么修改，修改为按下翻一页，怎么修改。
+            index总是有加一减一的逻辑，优化一下
+        */
+
+        class mapPlayer {
+            constructor(count, op) {
+                // 当前list的长度
+                this.curlistLength = 6
+                // 当前指向的index
+                this.curIndex = 1
+                // 当前指向的值
+                this.curValue = 1
+                // 当前曲目
+                this.curPlay = 1
+                this.curList = []
+                this.op = op
+                this.playList = []
+                // 总list长度
+                this.listLength = count
+                this.initList(count)
+            }
+            initList(count) {
+                let list = []
+                let curList = []
+                for (var i = 1; i <= count; i++) {
+                    if (i <= this.curlistLength) {
+                        curList.push(i)
+                    }
+                    list.push(i)
+                }
+                this.playList = list
+                this.curList = curList
+            }
+            // 移动的逻辑
+            move() {
+                Array.from(this.op).forEach((item, index) => {
+                    // 上操作
+                    if (item === 'U') {
+                        // true是多页，false是单页
+                        if (this.listLength > this.curlistLength) {
+                            // 不在第一项，就向上减一项
+                            if (this.curIndex !== 1) {
+                                this.curIndex -= 1
+                            } else {
+                                // 当前指针是否指向全部list的第一项 当前的index是否等于当前的值（index和value开始的时候是相同的）
+                                if (this.curIndex === this.curList[this.curIndex - 1]) {
+                                    this.curList = []
+                                    for (var i = this.playList.length; i > this.playList.length - this.curlistLength; i--) {
+                                        this.curList.unshift(this.playList[i - 1])
+                                    }
+                                    this.curIndex = this.curlistLength
+                                } else {
+                                    // 删除最后一项，往数组前放下一个
+                                    this.curList.pop()
+                                    this.curList.unshift(this.curList[this.curIndex - 1] - 1)
+                                }
+                            }
+                        } else {
+                            this.curIndex === 1 ? this.curIndex = this.listLength : this.curIndex -= 1
+                        }
+                        // 下操作
+                    } else if (item === 'D') {
+                        // true是多页，false是单页
+                        if (this.listLength > this.curlistLength) {
+                            // 不在最后一项，就向下加一项
+                            if (this.curIndex !== this.curlistLength) {
+                                this.curIndex += 1
+                            } else {
+                                // 当前指针是否指向全部list的最后一项
+                                if (this.curList[this.curIndex - 1] === this.playList[this.playList.length - 1]) {
+                                    this.curList = []
+                                    for (var i = 1; i <= this.curlistLength; i++) {
+                                        this.curList.push(i)
+                                    }
+                                    this.curIndex = 1
+                                } else {
+                                    // 删除第一项，push下一项
+                                    this.curList.shift()
+                                    this.curList.push(this.curList[this.curIndex - 2] + 1)
+                                }
+                            }
+                        } else {
+                            this.curIndex === this.listLength ? this.curIndex = 1 : this.curIndex += 1
+                        }
+                    }
+                })
+            }
+            updateCurList(type) {
+
+            }
+            showList() {
+                console.log('curList =' + this.curList, 'playList =' + this.playList, 'curIndex =' + this.curIndex)
+            }
+        }
+        // 初始化的时候，定义了本次的所有操作
+        let m = new mapPlayer(10, 'UUUUDD')
+        m.move()
+        m.showList()
+    </script>
+</body>
+
+</html>

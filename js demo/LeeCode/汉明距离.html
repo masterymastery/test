@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>汉明距离</title>
+</head>
+<!--
+    两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+给出两个整数 x 和 y，计算它们之间的汉明距离。
+注意：
+0 ≤ x, y < 231.
+示例:
+输入: x = 1, y = 4
+输出: 2
+解释:
+1   (0 0 0 1)
+4   (0 1 0 0)
+       ↑   ↑
+上面的箭头指出了对应二进制位不同的位置。
+
+首先我不知道整数怎么转成字符串
+然后查到了转的方法，忘记了前面要补零去比较
+比较的时候还要从后往前比
+比较之前还要找到比较大的那个，用大的长度去循环
+-->
+
+<body style="margin:0px;">
+    <script>
+        var hammingDistance = function (x, y) {
+            var binaryX = x
+            var binaryY = y
+            binaryX = binaryX.toString(2)
+            binaryY = binaryY.toString(2)
+            var bigArr = []
+            var smallArr = []
+            var distance = 0
+            if (binaryX.length >= binaryY.length) {
+                bigArr = Array.from(binaryX)
+                smallArr = Array.from(binaryY)
+            } else {
+                bigArr = Array.from(binaryY)
+                smallArr = Array.from(binaryX)
+            }
+            var smallLength = smallArr.length - 1
+            for (var i = bigArr.length - 1; i >= 0; i--) {
+                var smallValue = smallArr[smallLength]
+                if (!smallValue) {
+                    smallValue = '0'
+                }
+                if (bigArr[i] !== smallValue) {
+                    distance++
+                }
+                smallLength--
+            }
+            return distance
+        };
+
+        console.log(hammingDistance(3, 5))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>约瑟夫环</title>
+</head>
+<!--
+    
+-->
+
+<body style="margin:0px;">
+    <script>
+        var M = 3
+        if (M <= 1 || M >= 100) {
+            console.log("ERROR!")
+        }
+        var arr = []
+        for (var i = 1; i <= 5; i++) {
+            var obj = {
+                oldCode: i,
+                newCode: 0
+            }
+            arr.push(obj)
+        }
+        var newArr = []
+        var result = ''
+        circle(arr, 1)
+        for (var j = 0; j < newArr.length; j++) {
+            j === newArr.length - 1 ? result += newArr[j].oldCode : result += newArr[j].oldCode + ','
+        }
+        console.log(result)
+        function circle(_arr, begin, code) {
+            // 数组的长度小于M，退出
+            if (_arr.length < M) {
+                this.newArr = _arr
+                return
+            }
+            var count = 1
+            if (code) {
+                count = code
+            }
+            // 叫号的过程
+            for (var i = begin; i <= _arr.length; i++) {
+                // 数组中每一项的新号码等于遍历的顺序
+                _arr[i - 1].newCode = count
+                count++
+                if (_arr[i - 1].newCode === M) {
+                    // 从数组中删除这一项，然后从删除的这一项的下一项重新开始报数
+                    circle(_arr.filter(item => item.newCode !== M), i)
+                }
+                // 如果循环结束了，要重新开始，号码要继续上一次的号码
+                if (begin === _arr.length - 1 || begin === _arr.length) {
+                    circle(_arr, 1, count)
+                }
+            }
+            return _arr
+        }
+    </script>
+</body>
+
+</html>

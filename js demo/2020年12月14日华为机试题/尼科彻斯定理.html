@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>尼科彻斯定理</title>
+    <meta />
+</head>
+
+<body>
+    题目描述:
+    验证尼科彻斯定理，即：任何一个整数m的立方都可以写成m个连续奇数之和。
+    例如：
+    1^3=1
+    2^3=3+5
+    3^3=7+9+11
+    4^3=13+15+17+19
+    输入一个正整数m（m≤100），将m的立方写成m个连续奇数之和的形式输出。
+    本题含有多组输入数据。
+    <script>
+        let arr = []
+        let str = ''
+        function nico(num) {
+            let count = num * num * num
+            arr = []
+            // 216等于连续的哪六个奇数的和
+            for (var i = 0; i < count; i++) {
+                if (i % 2 === 1) {
+                    var _count = 0
+                    var value = 0
+                    for (var j = 0; j < num; j++) {
+                        value = i + 2 * j
+                        _count += value
+                        arr.push(value)
+                        // i + (i + 2) + (i + 4) ....
+                        if (_count === count) {
+                            // console.log(i)
+                            // console.log(arr)
+                            return
+                        }
+                    }
+                    arr = []
+                }
+            }
+
+        }
+        nico(89)
+        arr.forEach((item, index) => {
+            index === 0 ? str += item : str += '+' + item
+        })
+        console.log(str)
+    </script>
+</body>
+
+</html>

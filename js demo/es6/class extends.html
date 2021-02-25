@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>test</title>
+</head>
+<!--
+-->
+<script type=" module" src='./model.js'></script>
+<script type=" module" src='./father1.js'></script>
+<script type=" module" src='./father2.js'></script>
+
+<body style="margin:0px;">
+    <script type="module">
+        import { father } from './father1'
+
+        class HtModel extends mix(father1, father2) { }
+        console.log(father)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>circleList</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        /**
+        给定一个链表，判断链表中是否有环。
+
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+如果 pos 是 -1，则在该链表中没有环。
+示例 1：
+输入：head = [3,2,0,-4], pos = 1
+输出：true
+解释：链表中有一个环，其尾部连接到第二个节点。
+  * Definition for singly-linked list.
+  * function ListNode(val) {
+  *     this.val = val;
+  *     this.next = null;
+  * }
+  */
+        function ListNode(val) {
+            this.val = val;
+            this.next = null;
+        }
+        var a = new ListNode(3);
+        var b = new ListNode(2);
+        var c = new ListNode(0);
+        var d = new ListNode(-4);
+        a.next = b;
+        b.next = c;
+        c.next = d;
+        d.next = b;
+        var list = { head: a };
+        //console.log(list);
+        var hasCycle = function (head) {
+            let slow = head;// 使用快慢双指针
+            let fast = head;
+            while (fast && fast.next && fast.next.next) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow === fast) { return true }
+            }
+            return false;
+        };
+        var hasCycle = function (head) {
+            if (head && head.next && head.next.next) {
+                return isCycle(head.next, head.next.next)
+            } else {
+                return false;
+            }
+            function isCycle(slow, fast) {
+                if (slow === fast) {
+                    return true;
+                } else {
+                    if (slow.next && fast.next &&fast.next.next) {
+                        return isCycle(slow.next, fast.next.next)
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        };
+        console.log(hasCycle(list.head));
+
+    </script>
+</body>
+
+</html>

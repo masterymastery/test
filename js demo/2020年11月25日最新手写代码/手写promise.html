@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta />
+</head>
+
+<body>
+    promise原理，new一个promise对象，有三个状态，成功，失败，进行中，异步方法成功调用resolve，失败调用reject。
+    使用promise对象的then来接受resolve和reject方法里传的参数。
+    手写的原理：promise肯定是一个class，在constructor中接收到一个function
+    constructor中有state当前状态，定义resolve和reject函数
+    <script>
+        var promise = new Promise((resolve, reject) => {
+            if (true) {
+                resolve(1)
+            } else {
+                reject(2)
+            }
+        })
+        promise.then((resolve) => {
+            console.log(resolve)
+        })
+
+        const PENDING = 'pening'
+        const RESOLVE = 'resolve'
+        const REJECT = 'reject'
+        class _Promise {
+            constructor(excutor) {
+                this.state = PENDING
+                this.value = ''
+                this.reason = ''
+                let resolve = (value) => {
+                    if (this.status === PENDING) {
+                        this.value = value
+                        this.status = RESOLVE
+                    }
+                }
+                let reject = (reason) => {
+                    if (this.status === PENDING) {
+                        this.reason = reason
+                        this.status = REJECT
+                    }
+                }
+                try {
+                    excutor(resolve, reject)
+                } catch (error) {
+                    excutor(reject(error))
+                }
+            }
+            then(fn1, fn2) {
+                if (this.status === RESOLVE) {
+                    fn1(this.value)
+                } else if (this.status === REJECT) {
+                    fn2(this.reason)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

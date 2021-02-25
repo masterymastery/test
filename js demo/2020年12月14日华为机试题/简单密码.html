@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>简单密码</title>
+    <meta />
+</head>
+
+<body>
+    题目描述
+    假设渊子原来一个BBS上的密码为zvbo9441987,为了方便记忆，他通过一种算法把这个密码变换成YUANzhi1987。
+
+    他是这么变换的，大家都知道手机上的字母： 1--1， abc--2, def--3, ghi--4, jkl--5, mno--6, pqrs--7, tuv--8 wxyz--9,
+    0--0,就这么简单，渊子把密码中出现的小写字母都变成对应的数字，数字和其他的符号都不做变换，
+
+    声明：密码中没有空格，而密码中出现的大写字母则变成小写之后往后移一位，如：X，先变成小写，再往后移一位，不就是y了嘛，简单吧。记住，z往后移是a哦。
+
+    输入描述:
+    输入包括多个测试数据。输入是一个明文，密码长度不超过100个字符，输入直到文件结尾
+
+    输出描述:
+    输出渊子真正的密文
+
+    第一种方法是写if else把变化都给变了
+    第二种办法是写一个字典表，两个对象顺序相同
+    char a[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"}; //非必要的参照字典
+    char b[] = {"bcdefghijklmnopqrstuvwxyza222333444555666777788899990123456789"}; //字符输出对应字典
+    <script>
+        function password(str) {
+            var newStr = ''
+            Array.from(str).forEach(item => {
+                newStr += transform(item)
+            })
+            return newStr
+        }
+        // 判断是否是大小写字母，对应不同的转换规则
+        // 小写字母变数字：abc--2, def--3, ghi--4, jkl--5, mno--6, pqrs--7, tuv--8 wxyz--9
+        // 大写字母先变小写，再往后移一位
+        function transform(char) {
+            if (/[a-z]/.test(char)) {
+                return lowLetterRule(char)
+            } else if (/[A-Z]/.test(char)) {
+                return upLetterRule(char)
+            } else {
+                return char
+            }
+        }
+        function lowLetterRule(char) {
+            if (/[a-c]/.test(char)) {
+                return 2
+            } else if (/[d-f]/.test(char)) {
+                return 3
+            } else if (/[g-i]/.test(char)) {
+                return 4
+            } else if (/[j-l]/.test(char)) {
+                return 5
+            } else if (/[m-o]/.test(char)) {
+                return 6
+            } else if (/[p-s]/.test(char)) {
+                return 7
+            } else if (/[t-v]/.test(char)) {
+                return 8
+            } else if (/[w-z]/.test(char)) {
+                return 9
+            }
+        }
+        function upLetterRule(char) {
+            if (char === 'Z') {
+                return 'a'
+            } else {
+                let newCharPos = char.charCodeAt() + 1
+                return String.fromCharCode(newCharPos).toLowerCase()
+            }
+        }
+        console.log(password('q84gZ2lk24dbC8RL97a13l6n65ImZA'))
+    </script>
+</body>
+
+</html>

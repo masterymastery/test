@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>treeChangeList</title>
+</head>
+<!--
+-->
+
+<body style="margin:0px;">
+    <script>
+        var tree = {
+            val: 1,
+            left: {
+                val: 2,
+                left: {
+                    val: 3
+                },
+                right: {
+                    val: 4
+                }
+            },
+            right: {
+                val: 5,
+                right:{
+                    val:6
+                }
+            }
+        };
+        var flatten = function (root) {
+            //创建List根节点
+            var list = new List(root.val);
+            return createList(list, root);
+        };
+        console.log(flatten(tree));
+        function createList(list, root) {
+            if (root.right) {
+                list.insert(root.right.val, root.val);
+                createList(list, root.right);
+            }
+            if (root.left) {
+                list.insert(root.left.val, root.val);
+                createList(list, root.left);
+            }
+            return list;
+        }
+        function List(head) {
+            this.head = new ListNode(head);
+            this.find = find;
+            this.insert = insert;
+        }
+        function ListNode(val) {
+            this.val = val;
+            this.next = null
+        }
+
+        function insert(newElement, item) {
+            var newNode = new ListNode(newElement);
+            var currNode = this.find(item);
+            //加塞儿
+            newNode.next = currNode.next;
+            //上个节点的下一个指向新节点
+            currNode.next = newNode;
+        }
+
+        function find(item) {
+            var currNode = this.head;
+            while (currNode.val != item) {
+                currNode = currNode.next;
+            }
+            return currNode;
+        }
+    </script>
+</body>
+
+</html>

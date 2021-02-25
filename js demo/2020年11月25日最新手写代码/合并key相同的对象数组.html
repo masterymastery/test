@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta />
+</head>
+
+<body>
+    [{id:1,value:a},{id:1,value:b},{id:2,value:a}] => [{id:1,value:[a,b]},{id:2,value:a}]
+    方法1：遍历数组，通过数组的find方法找重复的id，如果找到，就改变item的value变为数组并push进相同的value，如果没找到就直接push进新数组
+    方法2：遍历数组，newMap，相同的key会自动合并，将后面的替换成前面的，性能反倒更慢了
+    <script>
+        let arr = [{ id: 1, value: 'a' }, { id: 1, value: 'b' }, { id: 2, value: 'c' }, { id: 2, value: 'd' }, { id: 3, value: 'e' }]
+        console.log(arr)
+        let funciton1 = function (arr) {
+            let brr = []
+            arr.forEach((item, index) => {
+                // 有没有相同id的项
+                let target = brr.find((i) => i.id === item.id)
+                if (target) {
+                    // 如果有看是不是已经转换成数组了，转了就push进去，没转说明放入的第一个，要转一下
+                    if (Array.isArray(target.value)) {
+                        target.value.push(item.value)
+                    } else {
+                        let temp = target.value
+                        target.value = []
+                        target.value.push(temp)
+                        target.value.push(item.value)
+                    }
+                } else {
+                    brr.push(item)
+                }
+            })
+            return brr
+        }
+        console.log(funciton1(arr))
+        let funciton2 = function (arr) {
+            let map = new Map()
+            arr.forEach((item, index) => {
+                if (map.has(item.id)) {
+                    let value = map.get(item.id)
+                    if (Array.isArray(value)) {
+                        value.push(item.value)
+                    } else {
+                        let temp = value
+                        value = []
+                        value.push(temp)
+                        value.push(item.value)
+                    }
+                } else {
+                    map.set(item.id, item.value)
+                }
+            })
+            return map
+        }
+        console.log(funciton2(arr))
+    </script>
+</body>
+
+</html>
