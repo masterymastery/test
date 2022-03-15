@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Element Event Handler</title>
+    <style type="text/css">
+        body {
+            background: #efefef;
+        }
+
+        #container {
+            width: 1012px;
+            margin: 0 auto;
+        }
+
+        #left {
+            float: left;
+            width: 700px;
+            padding: 0;
+            margin: 0;
+        }
+
+        #canvas {
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            background: #fff;
+        }
+
+        #right {
+            float: left;
+            width: 300px;
+            height: 500px;
+            margin: 0 0 0 12px;
+            padding: 0;
+
+        }
+
+        .output {
+            display: inline-block;
+            margin: 0;
+            width: 100%;
+            height: 480px;
+            overflow: auto;
+            font-family: sans-serif;
+            font-size: 1em;
+            line-height: 1.2em;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="left">
+            <canvas id="canvas" width="700" height="500"></canvas>
+        </div>
+        <div id="right">
+            <textarea class="output" id="msg"></textarea>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/cce.js"></script>
+    <script type="text/javascript" src="js/event/Event.js"></script>
+    <script type="text/javascript" src="js/event/EventTarget.js"></script>
+    <script type="text/javascript" src="js/event/EventManager.js"></script>
+    <script type="text/javascript" src="js/Containner.js"></script>
+    <script type="text/javascript" src="js/SortArray.js"></script>
+    <script type="text/javascript" src="js/shape/DisplayObject.js"></script>
+    <script type="text/javascript" src="js/shape/Rectangle.js"></script>
+    <script type="text/javascript" src="js/shape/Circle.js"></script>
+    <script type="text/javascript" src="js/shape/Polygon.js"></script>
+    <script type="text/javascript">
+
+        var output = document.getElementById('msg');
+
+        var canvas = document.getElementById("canvas");
+
+        var container = new cce.Container(canvas);
+
+        container.enableMouse();
+        container.enableClick();
+
+        var rec = new cce.Rectangle(50, 50, 100, 50);
+        container.addChild(rec);
+
+        var rec2 = new cce.Rectangle(200, 50, 100, 20);
+        container.addChild(rec2);
+
+        var circle = new cce.Circle(400, 100, 50);
+        container.addChild(circle);
+
+        var circle2 = new cce.Circle(550, 100, 20);
+        container.addChild(circle2);
+
+        var pol = new cce.Polygon([
+            { x: 250, y: 300 },
+            { x: 200, y: 350 },
+            { x: 300, y: 350 }
+        ]);
+        container.addChild(pol);
+
+        var pol2 = new cce.Polygon([
+            { x: 450, y: 300 },
+            { x: 440, y: 320 },
+            { x: 490, y: 320 }
+        ]);
+        container.addChild(pol2);
+
+
+        rec.addListener("mouseover", function () {
+            appendMsg("enter big rectangle...")
+        });
+
+        rec2.addListener("mouseout", function () {
+            appendMsg("out small rectangle...")
+        });
+
+        circle.addListener("click", function () {
+            appendMsg("click at big circle");
+        });
+
+        circle2.addListener("mousemove", move);
+
+        circle2.addListener("click", click);
+
+        pol.addListener("mouseover", function () {
+            appendMsg("enter big triangle")
+        });
+
+        pol.addListener("mouseout", function () {
+            appendMsg("out big triangle")
+        });
+
+        pol2.addListener("mouseover", function () {
+            appendMsg("enter small triangle")
+        });
+
+        pol2.addListener("mouseout", function () {
+            appendMsg("out small triangle")
+        });
+
+
+
+        container.draw();
+
+
+        function move() {
+            appendMsg("move in small circle...")
+        }
+
+        function click() {
+            circle2.removeListener("mousemove", move);
+            appendMsg("click at small circle...");
+            appendMsg("remove mouseover listener of small circle...");
+        }
+
+        function appendMsg(msg) {
+            output.value = output.value + msg + "\n";
+            output.scrollTop = output.scrollHeight
+
+        }
+
+
+    </script>
+</body>
+
+</html>

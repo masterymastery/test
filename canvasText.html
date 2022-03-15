@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #canvas {
+            background: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id='canvas'></canvas>
+</body>
+<script>
+    const canvas = document.getElementById('canvas')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    const ctx = canvas.getContext('2d')
+    ctx.font = 'bold 100px arail'
+    ctx.fillText('好好学习', 100, 100)
+
+    canvas.addEventListener('mousemove', (e) => {
+        console.log('x=' + e.clientX, 'y=' + e.clientY)
+        if (pengzhuang(e.clientX, e.clientY)) {
+            canvas.style.cursor = 'wait'
+        }
+        if (离开(e.clientX, e.clientY)) {
+            canvas.style.cursor = 'pointer'
+        }
+    })
+
+    // canvas.addEventListener('mouseout', (e) => {
+    //     if (离开(e.clientX, e.clientY)) {
+    //         canvas.style.cursor = 'pointer'
+    //     }
+    // })
+
+    function pengzhuang(x, y) {
+        if (x > 100 && x < 400 && y > 0 && y < 100) {
+            return true
+        }
+    }
+
+    function 离开(x, y) {
+        if (x < 100 || x > 400 || y < 0 || y > 100) {
+            return true
+        }
+    }
+</script>
+
+</html>

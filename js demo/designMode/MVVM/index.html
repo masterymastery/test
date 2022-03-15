@@ -8,10 +8,10 @@
 </head>
 <!-- 
     VUE的MVVM就是整合以下四个模块
-    1.模板编译
-    2.数据劫持
-    3.Watcher
-    4.依赖收集
+    1.模板编译Complie.js
+    2.数据劫持Observer.js
+    3.观察者Watcher.js
+    4.依赖收集Dep.js
 -->
 
 <body style="margin: 0px;">
@@ -21,13 +21,27 @@
         <a href="">123</a>
         {{message}}
     </div>
-    <script src='./MVVM.js'></script>
-    <script src='./complie.js'></script>
+    <!-- <script src='./MVVM.js'></script> -->
+    <script src='./Complie.js'></script>
+    <script src='./Observer.js'></script>
+    <script src='./Watcher.js'></script>
+    <script src='./Dep.js'></script>
     <script>
-        let vm = new MVVM({
-            el:'#app',
-            data:{
-                message:'hello'
+        class Vue {
+            constructor(vm) {
+                this.$el = vm.el
+                this.$data = vm.data
+                if (this.$el) {
+                    const com = new Complie(this.$el, this.$data)
+                    com._complie()
+                }
+            }
+        }
+
+        let vm = new Vue({
+            el: 'app',
+            data: {
+                message: 'hello'
             }
         })
     </script>
