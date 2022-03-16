@@ -17,8 +17,10 @@
 <body style="margin: 0px;">
     <div id="app">
         <input type='text' v-model='message'>
-        <div>不编译</div>
-        <a href="">123</a>
+        <div>
+            <p></p>
+        </div>
+        <!-- <a href="">123</a> -->
         {{message}}
     </div>
     <!-- <script src='./MVVM.js'></script> -->
@@ -31,17 +33,33 @@
             constructor(vm) {
                 this.$el = vm.el
                 this.$data = vm.data
+                new Observer(this.$data)
                 if (this.$el) {
-                    const com = new Complie(this.$el, this.$data)
-                    com._complie()
+                    new Complie(this.$el, this.$data)
+                    // com._complie()
                 }
+
+                // console.log(this.$data.a.b)
+                // this.$data.a.b = 'go home'
+                // console.log(this.$data.a.b)
+                // this.$data.message = '123'
+                // console.log(this.$data)
+                // observer.reactive(this.$data)
+                // console.log(this.$data)
             }
         }
 
         let vm = new Vue({
             el: 'app',
             data: {
-                message: 'hello'
+                message: 'hello',
+                a: {
+                    b: {
+                        c: {
+                            d: 2
+                        }
+                    }
+                }
             }
         })
     </script>
