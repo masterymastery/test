@@ -1,0 +1,32 @@
+<script>
+
+  var worker = new Worker('work.js');
+  worker.postMessage(1)
+  const bothArr = []
+
+  // var worker2 = new Worker('work2.js');
+  // worker.onmessage = function (event) {
+  //   if (event.data === 10) {
+  //     worker.terminate();
+  //   } else {
+  //     console.log('Received message ' + event.data);
+  //     doSomething();
+  //   }
+  // }
+  worker.postMessage(bothArr);
+  //setTimeout(() => {
+  for (var i = 0; i < 10000; i++) {
+    console.log('主线程')
+    bothArr.push('主线程' + i)
+  }
+  //}, 100)
+
+  worker.onmessage = function (event) {
+    console.log('主线程接收到子线程的消息：', event.data);
+    worker.terminate();
+  }
+
+  console.log('最终结果', bothArr)
+//
+
+</script>
